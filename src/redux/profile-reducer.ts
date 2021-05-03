@@ -1,10 +1,20 @@
-import { ActionType, PostDataProps, ProfilePageProps } from "./state";
+import { ActionType, ProfilePageProps } from "./state";
 
 
 const ADD_POST = "ADD-POST";
 const APDATE_NEW_POST = "APDATE-NEW-POST";
 
-let initialState={
+export type PostDataProps = {
+  id: string;
+  message: string;
+  likeCount: number;
+};
+
+export type initialStateProps={
+    PostData: Array<PostDataProps>;
+    newPostText: string;
+}
+let initialState:initialStateProps ={
   PostData: [
     { id: "1", message: "hello", likeCount: 0 },
     { id: "2", message: "yes", likeCount: 5 },
@@ -14,7 +24,7 @@ let initialState={
   newPostText: "",
 }
 
-export function profileReduser(state: ProfilePageProps =initialState , action: ActionType) {
+export function profileReduser(state: initialStateProps =initialState , action: ActionType) {
 // debugger
   switch (action.type) {
     case ADD_POST:

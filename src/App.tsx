@@ -12,8 +12,6 @@ import { ActionType, StatePropsType } from "./redux/state";
 type AppPropsType={
   state: reducersType
   dispatch:(action:ActionType)=>void
-  // addPost: (textPost:string)=>void
-  // updateNewPost:(newText: string)=>void
 }
 
 function App(props:AppPropsType) {

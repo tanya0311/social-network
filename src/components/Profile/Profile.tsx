@@ -4,26 +4,27 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import s from "./Profile.module.css";
 import { PostPropsType } from "./MyPost/Post/Post";
 import { ActionType, ProfilePageProps } from "../../redux/state";
+import MyPostContainer from "./MyPost/MyPostContainer";
 
-type ProfilePropsType={
-  state1: ProfilePageProps
-  // addPost: (textPost:string)=>void
-  // updateNewPost:(newText: string)=>void
-  dispatch:(action:ActionType)=>void
-}
-function Profile(props:ProfilePropsType) {
+type ProfilePropsType = {
+  state1: ProfilePageProps;
 
-  
-  // let posts=PostData.map(e=><Post id={e.id} message={e.message} likeCount={e.likeCount} />
-  //   )
-  
-  
+  dispatch: (action: ActionType) => void;
+};
+function Profile(props: ProfilePropsType) {
   return (
     <div>
       <ProfileInfo />
-      <MyPost PostData={props.state1.PostData}  newPostText={props.state1.newPostText} dispatch={props.dispatch}
-      // addPost={props.addPost} updateNewPost={props.updateNewPost}
+      <MyPostContainer
+        PostData={props.state1.PostData}
+        newPostText={props.state1.newPostText}
+        dispatch={props.dispatch}
       />
+      {/* <MyPostContainer store={props.store}/> */}
+
+      {/* <MyPost PostData={props.state1.PostData}  newPostText={props.state1.newPostText} dispatch={props.dispatch}
+      // addPost={props.addPost} updateNewPost={props.updateNewPost}
+      /> */}
     </div>
   );
 }

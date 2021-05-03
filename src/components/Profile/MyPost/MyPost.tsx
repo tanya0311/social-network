@@ -1,5 +1,8 @@
 import React from "react";
-import { addPostActionCreator, onPostChangeAC } from "../../../redux/profile-reducer";
+import {
+  addPostActionCreator,
+  onPostChangeAC,
+} from "../../../redux/profile-reducer";
 
 import { ActionType } from "../../../redux/state";
 import s from "./MyPost.module.css";
@@ -8,12 +11,9 @@ import Post, { PostPropsType } from "./Post/Post";
 type MyPostPropsType = {
   PostData: Array<PostPropsType>;
   newPostText: string;
-  dispatch: (action: ActionType) => void;
-  // addPost: (textPost:string)=>void
-  // updateNewPost:(newText: string)=>void
+  addPost: () => void;
+  updateNewPostText: (newText: string) => void;
 };
-
-
 
 function MyPost(props: MyPostPropsType) {
   let posts = props.PostData.map((e) => (
@@ -23,21 +23,14 @@ function MyPost(props: MyPostPropsType) {
   let newPostElement = React.createRef<HTMLTextAreaElement>();
 
   function addPost() {
-    props.dispatch(addPostActionCreator());
-    // debugger
-    // let addText=newPostElement.current?.value
-    // if (addText){
-    //   props.dispatch({type: "ADD-POST", addText});
-
-    // props.addPost(newPostElement.current?.value);
-    // props.updateNewPost('')
+    props.addPost();
   }
 
   function onPostChange() {
     // debugger
     let newText = newPostElement.current?.value;
     if (newText) {
-      props.dispatch(onPostChangeAC(newText));
+      props.updateNewPostText(newText);
     }
   }
 
