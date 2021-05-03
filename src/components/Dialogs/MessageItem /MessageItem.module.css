@@ -1,0 +1,8 @@
+.message {
+  padding: 10px;
+}
+
+.messageItem{
+  display: flex;
+  justify-content: space-between;
+}
