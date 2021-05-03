@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import Dialogs from "./components/Dialogs/Dialogs";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Header from "./components/header/Header";
 import Nav from "./components/nav/nav";
 // import { PostPropsType } from "./components/Profile/MyPost/Post/Post";
@@ -23,14 +24,11 @@ function App(props:AppPropsType) {
         <Header />
         <Nav nameUser={props.state.sidebarPage.nameUser} />
         <div className="app-wrapper-content">
-          {/* <Route path="/profile" component={Profile} />
-          <Route  path="/dialogs" component={Dialogs} /> */}
-
-
+       
           <Route path="/profile" render={()=><Profile state1={props.state.profilePage} dispatch={props.dispatch}
-          // addPost={props.addPost} updateNewPost={props.updateNewPost}
+       
           />} />
-          <Route path="/dialogs" render={()=><Dialogs state1={props.state.dialogPage} dispatch={props.dispatch}/>} />
+          <Route path="/dialogs" render={()=><DialogsContainer state1={props.state.dialogPage} dispatch={props.dispatch}/>} />
 
         </div>
       </div>

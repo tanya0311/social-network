@@ -13,7 +13,9 @@ import MessageItem, { MessageItemProps } from "./MessageItem /MessageItem";
 
 export type DialogPropsType = {
   state1: MessagePageProps;
-  dispatch: (action: ActionType) => void;
+  updateNewMessage:(body:string)=>void
+  addMessageText:()=>void
+
 };
 
 function Dialog(props: DialogPropsType) {
@@ -26,11 +28,12 @@ function Dialog(props: DialogPropsType) {
   ));
 
   let addMessageText = () => {
-    props.dispatch(sentMessageCreator());
+    props.addMessageText( )
   };
   let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     let body = e.currentTarget.value;
-    props.dispatch(updateNewMessageBodyCreator(body));
+    props.updateNewMessage(body)
+   
   };
 
   return (

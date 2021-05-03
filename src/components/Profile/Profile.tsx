@@ -8,7 +8,6 @@ import MyPostContainer from "./MyPost/MyPostContainer";
 
 type ProfilePropsType = {
   state1: ProfilePageProps;
-
   dispatch: (action: ActionType) => void;
 };
 function Profile(props: ProfilePropsType) {

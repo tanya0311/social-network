@@ -19,6 +19,8 @@ type MyPostPropsType = {
 // };
 
 function MyPostContainer(props: MyPostPropsType) {
+  // let state=props.store.getState();
+  
   function AddPost() {
     props.dispatch(addPostActionCreator());
   }
