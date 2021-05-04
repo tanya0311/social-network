@@ -1,13 +1,7 @@
 import React from "react";
 import s from "./MyPost.module.css";
-import Post, { PostPropsType } from "./Post/Post";
-
-type MyPostPropsType = {
-  PostData: Array<PostPropsType>;
-  newPostText: string;
-  addPost: () => void;
-  updateNewPostText: (newText: string) => void;
-};
+import { MyPostPropsType } from "./MyPostContainer";
+import Post from "./Post/Post";
 
 function MyPost(props: MyPostPropsType) {
   let posts = props.PostData.map((e) => (

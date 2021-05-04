@@ -3,10 +3,11 @@ import * as serviceWorker from "./serviceWorker";
 import ReactDOM from "react-dom";
 import React from "react";
 import App from "./App";
-import store, { reducersType } from "./redux/redux-store";
-import StoreContext, { Provider } from "./StoreContext";
+import store, { RootReducersType } from "./redux/redux-store";
+import StoreContext from "./StoreContext";
+import { Provider } from "react-redux";
 
-export function rernderApp(state: reducersType) {
+export function rernderApp(state: RootReducersType) {
   // debugger
   ReactDOM.render(
     <React.StrictMode>

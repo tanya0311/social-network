@@ -1,14 +1,9 @@
 import React from "react";
-import { NameUserProps } from "../../../redux/sidebar-reducer";
+import { NavPropsType } from "../NavContainer";
 import s from "./sidebar.module.css";
 import SidebarItem from "./sidebarItem/sidebarItem";
 
-type SidebarType = {
-  title: string;
-  nameUser: Array<NameUserProps>;
-};
-
-function Sidebar(props: SidebarType) {
+function Sidebar(props: NavPropsType) {
   let nameUserItem = props.nameUser.map((e) => (
     <SidebarItem nameUser={e.name} id={e.id} />
   ));

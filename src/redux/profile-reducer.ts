@@ -47,10 +47,10 @@ let initialState: initialStateProps = {
 const ADD_POST = "ADD-POST";
 const APDATE_NEW_POST = "APDATE-NEW-POST";
 
-export function profileReduser(
+export const profileReduser=(
   state: initialStateProps = initialState,
   action: ProfileReducerActionType
-) {
+):initialStateProps => {
   // debugger
   switch (action.type) {
     case ADD_POST:

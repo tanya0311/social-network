@@ -22,7 +22,7 @@ export type DialogReducerActionType =
 
 export type ReduserInitialStateProps = typeof initialState;
 
-export type initialStateProps = {
+export type initialStatePropsType = {
   messageData: Array<MessageDataProps>;
   dialogsData: Array<DialogsDataProps>;
   newMessageBody: string;
@@ -34,7 +34,7 @@ export const updateNewMessageBodyCreator = (body: string) => {
   return { type: "APDATE-NEW-MESSAGE-BODY", body: body } as const;
 };
 
-let initialState: initialStateProps = {
+let initialState: initialStatePropsType = {
   messageData: [
     { id: "1", text: "Hi" },
     { id: "2", text: "Hi" },
@@ -57,7 +57,7 @@ const SEND_MESSAGE = "SEND-MESSAGE";
 export function dialogReduser(
   state: ReduserInitialStateProps = initialState,
   action: DialogReducerActionType
-) {
+):initialStatePropsType{
   switch (action.type) {
     case APDATE_NEW_MESSAGE_BODY:
       state.newMessageBody = action.body;

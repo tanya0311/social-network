@@ -5,12 +5,12 @@ export type NameUserProps = {
   id: string;
   name: string;
 };
-export type initialStateSidebarProps = {
+export type initialStateSidebarPropsType = {
   nameUser: Array<NameUserProps>;
 }; 
 
 export type ActionType = any;
-let initialState: initialStateSidebarProps = {
+let initialState: initialStateSidebarPropsType= {
   nameUser: [
     { id: "1", name: "Света" },
     { id: "2", name: "Коля" },
@@ -19,8 +19,8 @@ let initialState: initialStateSidebarProps = {
 };
 
 export function sidebarReduser(
-  state: initialStateSidebarProps = initialState,
+  state: initialStateSidebarPropsType = initialState,
   action: ActionType
-) {
+):initialStateSidebarPropsType {
   return state;
 }

@@ -1,14 +1,8 @@
 import React, { ChangeEvent } from "react";
-import { initialStateProps } from "../../redux/dialog-reducer";
 import DialogItem from "./DialogItem/DialogItem";
 import s from "./Dialogs.module.css";
+import { DialogPropsType } from "./DialogsContainer";
 import MessageItem from "./MessageItem /MessageItem";
-
-export type DialogPropsType = {
-  state1: initialStateProps;
-  updateNewMessage: (body: string) => void;
-  addMessageText: () => void;
-};
 
 function Dialog(props: DialogPropsType) {
   let dialogsElement = props.state1.dialogsData.map((e) => (
