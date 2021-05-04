@@ -10,16 +10,17 @@ import {
   updateNewPostActionCreatorType,
 } from "./profile-reducer";
 import { sidebarReduser } from "./sidebar-reducer";
-import { StoreType } from "./state";
+
 
 export type reducersType = ReturnType<typeof reducers>;
-export type storeType = typeof store;
+export type ReduxStoreType = typeof store;
 
-// export type ActionType =
-//   | addPostActionCreatorType
-//   | updateNewPostActionCreatorType
-//   | sentMessageCreatorType
-//   | updateNewMessageBodyCreatorType;
+export type ActionType =
+  | addPostActionCreatorType
+  | updateNewPostActionCreatorType
+  | sentMessageCreatorType
+  | updateNewMessageBodyCreatorType; 
+  // combReducers () - функция Redux, которая объединяет все reduxReducers; принимает объект с  ключ-значение 
 
 let reducers = combineReducers({
   profilePage: profileReduser,

@@ -1,22 +1,18 @@
 import "./index.css";
-
 import * as serviceWorker from "./serviceWorker";
-
-import { StatePropsType } from "./redux/state";
 import ReactDOM from "react-dom";
 import React from "react";
 import App from "./App";
-// import store from "./redux/state";
 import store, { reducersType } from "./redux/redux-store";
+import StoreContext, { Provider } from "./StoreContext";
 
 export function rernderApp(state: reducersType) {
   // debugger
   ReactDOM.render(
     <React.StrictMode>
-      <App
-        state={state}
-        dispatch={store.dispatch.bind(store)}
-      />
+      <Provider store={store}>
+        <App  />
+      </Provider>
     </React.StrictMode>,
     document.getElementById("root")
   );

@@ -1,21 +1,13 @@
 import React, { ChangeEvent } from "react";
-import { NavLink } from "react-router-dom";
-import { sentMessageCreator, updateNewMessageBodyCreator } from "../../redux/dialog-reducer";
-import {
-  ActionType,
-  MessagePageProps,
-} from "../../redux/state";
-import { PostPropsType } from "../Profile/MyPost/Post/Post";
-import DialogItem, { DialogItemProps } from "./DialogItem/DialogItem";
+import { initialStateProps } from "../../redux/dialog-reducer";
+import DialogItem from "./DialogItem/DialogItem";
 import s from "./Dialogs.module.css";
-import MessageItem, { MessageItemProps } from "./MessageItem /MessageItem";
-
+import MessageItem from "./MessageItem /MessageItem";
 
 export type DialogPropsType = {
-  state1: MessagePageProps;
-  updateNewMessage:(body:string)=>void
-  addMessageText:()=>void
-
+  state1: initialStateProps;
+  updateNewMessage: (body: string) => void;
+  addMessageText: () => void;
 };
 
 function Dialog(props: DialogPropsType) {
@@ -28,12 +20,11 @@ function Dialog(props: DialogPropsType) {
   ));
 
   let addMessageText = () => {
-    props.addMessageText( )
+    props.addMessageText();
   };
   let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     let body = e.currentTarget.value;
-    props.updateNewMessage(body)
-   
+    props.updateNewMessage(body);
   };
 
   return (

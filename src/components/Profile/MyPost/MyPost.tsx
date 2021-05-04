@@ -1,10 +1,4 @@
 import React from "react";
-import {
-  addPostActionCreator,
-  onPostChangeAC,
-} from "../../../redux/profile-reducer";
-
-import { ActionType } from "../../../redux/state";
 import s from "./MyPost.module.css";
 import Post, { PostPropsType } from "./Post/Post";
 

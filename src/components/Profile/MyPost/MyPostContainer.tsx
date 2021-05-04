@@ -3,34 +3,32 @@ import {
   addPostActionCreator,
   onPostChangeAC,
 } from "../../../redux/profile-reducer";
-import { ActionType } from "../../../redux/state";
+import StoreContext from "../../../StoreContext";
 import MyPost from "./MyPost";
 
-import { PostPropsType } from "./Post/Post";
+function MyPostContainer() {
+  return (
+    <StoreContext.Consumer>
+      {(store) => {
+        const stateProfile = store.getState().profilePage;
+        function AddPost() {
+          store.dispatch(addPostActionCreator());
+        }
 
-type MyPostPropsType = {
-  PostData: Array<PostPropsType>;
-  newPostText: string;
-  dispatch: (action: ActionType) => void;
-};
-
-// type MyPostPropsType = {
-//  store:
-// };
-
-function MyPostContainer(props: MyPostPropsType) {
-  // let state=props.store.getState();
-  
-  function AddPost() {
-    props.dispatch(addPostActionCreator());
-  }
-
-  function OnPostChange(newText: string) {
-    props.dispatch(onPostChangeAC(newText));
-  }
-
-  return <MyPost updateNewPostText={OnPostChange} addPost={AddPost} PostData={props.PostData} newPostText={props.newPostText} />;
+        function OnPostChange(newText: string) {
+          store.dispatch(onPostChangeAC(newText));
+        }
+        return (
+          <MyPost
+            updateNewPostText={OnPostChange}
+            addPost={AddPost}
+            PostData={stateProfile.PostData}
+            newPostText={stateProfile.newPostText}
+          />
+        );
+      }}
+    </StoreContext.Consumer>
+  );
 }
 
 export default MyPostContainer;
-

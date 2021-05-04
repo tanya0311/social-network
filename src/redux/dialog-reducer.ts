@@ -1,18 +1,25 @@
-import { ActionType, MessagePageProps } from "./state";
 
-
-const APDATE_NEW_MESSAGE_BODY = "APDATE-NEW-MESSAGE-BODY";
-const SEND_MESSAGE = "SEND-MESSAGE";
-
-type DialogsDataProps = {
+export type DialogsDataProps = {
   id: string;
   name: string;
 };
 
-type MessageDataProps = {
+export type MessageDataProps = {
   id: string;
   text: string;
 };
+
+export type sentMessageCreatorType = ReturnType<typeof sentMessageCreator>;
+export type updateNewMessageBodyCreatorType = ReturnType<
+  typeof updateNewMessageBodyCreator
+>;
+export type DialogReducerActionType =
+  | sentMessageCreatorType
+  | updateNewMessageBodyCreatorType;
+
+//или
+// export type DialogReducerActionType = ReturnType<typeof sentMessageCreator> | ReturnType< typeof updateNewMessageBodyCreator>;
+
 export type ReduserInitialStateProps = typeof initialState;
 
 export type initialStateProps = {
@@ -21,27 +28,36 @@ export type initialStateProps = {
   newMessageBody: string;
 };
 
+export const sentMessageCreator = () => ({ type: "SEND-MESSAGE" } as const);
 
-let initialState:initialStateProps={
-    messageData: [
-      { id: "1", text: "Hi" },
-      { id: "2", text: "Hi" },
-      { id: "3", text: "Hello" },
-      { id: "4", text: "Yes" },
-    ],
-    dialogsData: [
-      { id: "1", name: "1" },
-      { id: "2", name: "2" },
-      { id: "3", name: "3" },
-      { id: "4", name: "4" },
-      { id: "5", name: "5" },
-    ],
-    newMessageBody: "",
-  
+export const updateNewMessageBodyCreator = (body: string) => {
+  return { type: "APDATE-NEW-MESSAGE-BODY", body: body } as const;
 };
 
-export function dialogReduser(state: ReduserInitialStateProps=initialState, action: ActionType) {
+let initialState: initialStateProps = {
+  messageData: [
+    { id: "1", text: "Hi" },
+    { id: "2", text: "Hi" },
+    { id: "3", text: "Hello" },
+    { id: "4", text: "Yes" },
+  ],
+  dialogsData: [
+    { id: "1", name: "1" },
+    { id: "2", name: "2" },
+    { id: "3", name: "3" },
+    { id: "4", name: "4" },
+    { id: "5", name: "5" },
+  ],
+  newMessageBody: ""
+};
 
+const APDATE_NEW_MESSAGE_BODY = "APDATE-NEW-MESSAGE-BODY";
+const SEND_MESSAGE = "SEND-MESSAGE";
+
+export function dialogReduser(
+  state: ReduserInitialStateProps = initialState,
+  action: DialogReducerActionType
+) {
   switch (action.type) {
     case APDATE_NEW_MESSAGE_BODY:
       state.newMessageBody = action.body;
@@ -56,12 +72,3 @@ export function dialogReduser(state: ReduserInitialStateProps=initialState, acti
       return state;
   }
 }
-
-export type sentMessageCreatorType = ReturnType<typeof sentMessageCreator>;
-export type updateNewMessageBodyCreatorType = ReturnType< typeof updateNewMessageBodyCreator>;
-
-export const sentMessageCreator = () => ({ type: "SEND-MESSAGE" } as const);
-
-export const updateNewMessageBodyCreator = (body:string) => {
-  return { type: "APDATE-NEW-MESSAGE-BODY", body:body } as const;
-};
