@@ -5,7 +5,7 @@ import SidebarItem from "./sidebarItem/sidebarItem";
 
 function Sidebar(props: NavPropsType) {
   let nameUserItem = props.nameUser.map((e) => (
-    <SidebarItem nameUser={e.name} id={e.id} />
+    <SidebarItem key={e.id} nameUser={e.name} id={e.id} />
   ));
   return (
     <div>

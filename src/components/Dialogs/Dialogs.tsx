@@ -6,11 +6,11 @@ import MessageItem from "./MessageItem /MessageItem";
 
 function Dialog(props: DialogPropsType) {
   let dialogsElement = props.state1.dialogsData.map((e) => (
-    <DialogItem name={e.name} id={e.id} />
+    <DialogItem key={e.id} name={e.name} id={e.id} />
   ));
 
   let messageElement = props.state1.messageData.map((e) => (
-    <MessageItem text={e.text} id={e.id} />
+    <MessageItem key={e.id} text={e.text} id={e.id} />
   ));
 
   let addMessageText = () => {

@@ -11,15 +11,14 @@ import {
 } from "./profile-reducer";
 import { sidebarReduser } from "./sidebar-reducer";
 
-
-export type RootReducersType = ReturnType<typeof rootReducer>; 
+export type RootReducersType = ReturnType<typeof rootReducer>;
 export type ReduxStoreType = typeof store;
 
 export type ActionType =
   | addPostActionCreatorType
   | updateNewPostActionCreatorType
   | sentMessageCreatorType
-  | updateNewMessageBodyCreatorType; 
+  | updateNewMessageBodyCreatorType;
 
 let rootReducer = combineReducers({
   profilePage: profileReduser,

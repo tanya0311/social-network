@@ -52,23 +52,21 @@ export const profileReduser = (
 ): initialStateProps => {
   // debugger
   switch (action.type) {
-    case ADD_POST: {
+    case ADD_POST:
       let newPost: PostDataProps = {
         id: "1",
         message: state.newPostText,
         likeCount: 0,
       };
-      let copyState = { ...state, PostData: [...state.PostData] };
-      copyState.PostData.push(newPost);
-      copyState.newPostText = "";
-      return copyState;
-    }
+
+      return {
+        ...state,
+        PostData: [...state.PostData, newPost],
+        newPostText: "",
+      };
 
     case APDATE_NEW_POST: {
-      let copyState = { ...state };
-      copyState.newPostText = action.newText;
-      return copyState;
-      // return { ...state, newPostText: action.newText };
+      return { ...state, newPostText: action.newText };
     }
 
     default:

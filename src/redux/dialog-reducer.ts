@@ -1,4 +1,3 @@
-
 export type DialogsDataProps = {
   id: string;
   name: string;
@@ -48,7 +47,7 @@ let initialState: initialStatePropsType = {
     { id: "4", name: "4" },
     { id: "5", name: "5" },
   ],
-  newMessageBody: ""
+  newMessageBody: "",
 };
 
 const APDATE_NEW_MESSAGE_BODY = "APDATE-NEW-MESSAGE-BODY";
@@ -57,22 +56,21 @@ const SEND_MESSAGE = "SEND-MESSAGE";
 export function dialogReduser(
   state: ReduserInitialStateProps = initialState,
   action: DialogReducerActionType
-):initialStatePropsType{
+): initialStatePropsType {
+  let stateCopy;
   switch (action.type) {
     case APDATE_NEW_MESSAGE_BODY:
-    {  
-      let copyState={...state}
-      copyState.newMessageBody = action.body;
-      return copyState;
-    }
+      return { ...state, newMessageBody: action.body };
+
     case SEND_MESSAGE:
-      {
-        let copyState={...state, messageData: [...state.messageData ]}
-        let body = copyState.newMessageBody;
-        copyState.newMessageBody = "";
-        copyState.messageData.push({ id: "4", text: body });
-      return copyState;
-    }
+      let body = state.newMessageBody;
+      stateCopy = {
+        ...state,
+        newMessageBody: "",
+        messageData: [...state.messageData, { id: "4", text: body }],
+      };
+
+      return stateCopy;
 
     default:
       return state;
