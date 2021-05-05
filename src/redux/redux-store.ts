@@ -12,7 +12,7 @@ import {
 import { sidebarReduser } from "./sidebar-reducer";
 
 
-export type RootReducersType = ReturnType<typeof rootReducer>; //т.у что она возвращает ReturnType
+export type RootReducersType = ReturnType<typeof rootReducer>; 
 export type ReduxStoreType = typeof store;
 
 export type ActionType =
@@ -20,7 +20,6 @@ export type ActionType =
   | updateNewPostActionCreatorType
   | sentMessageCreatorType
   | updateNewMessageBodyCreatorType; 
-  // combReducers () - функция Redux, которая объединяет все reduxReducers; принимает объект с  ключ-значение 
 
 let rootReducer = combineReducers({
   profilePage: profileReduser,

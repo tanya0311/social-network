@@ -60,13 +60,19 @@ export function dialogReduser(
 ):initialStatePropsType{
   switch (action.type) {
     case APDATE_NEW_MESSAGE_BODY:
-      state.newMessageBody = action.body;
-      return state;
+    {  
+      let copyState={...state}
+      copyState.newMessageBody = action.body;
+      return copyState;
+    }
     case SEND_MESSAGE:
-      let body = state.newMessageBody;
-      state.newMessageBody = "";
-      state.messageData.push({ id: "4", text: body });
-      return state;
+      {
+        let copyState={...state, messageData: [...state.messageData ]}
+        let body = copyState.newMessageBody;
+        copyState.newMessageBody = "";
+        copyState.messageData.push({ id: "4", text: body });
+      return copyState;
+    }
 
     default:
       return state;

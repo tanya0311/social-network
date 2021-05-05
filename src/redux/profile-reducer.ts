@@ -1,4 +1,3 @@
-
 export type PostDataProps = {
   id: string;
   message: string;
@@ -47,28 +46,32 @@ let initialState: initialStateProps = {
 const ADD_POST = "ADD-POST";
 const APDATE_NEW_POST = "APDATE-NEW-POST";
 
-export const profileReduser=(
+export const profileReduser = (
   state: initialStateProps = initialState,
   action: ProfileReducerActionType
-):initialStateProps => {
+): initialStateProps => {
   // debugger
   switch (action.type) {
-    case ADD_POST:
+    case ADD_POST: {
       let newPost: PostDataProps = {
         id: "1",
         message: state.newPostText,
         likeCount: 0,
       };
-      state.PostData.push(newPost);
-      state.newPostText = "";
-      return state;
+      let copyState = { ...state, PostData: [...state.PostData] };
+      copyState.PostData.push(newPost);
+      copyState.newPostText = "";
+      return copyState;
+    }
 
-    case APDATE_NEW_POST:
-      state.newPostText = action.newText;
-      return state;
-    // return { ...state, newPostText: action.newText };
+    case APDATE_NEW_POST: {
+      let copyState = { ...state };
+      copyState.newPostText = action.newText;
+      return copyState;
+      // return { ...state, newPostText: action.newText };
+    }
 
     default:
       return state;
   }
-}
+};
