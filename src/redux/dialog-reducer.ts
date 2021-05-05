@@ -27,10 +27,12 @@ export type initialStatePropsType = {
   newMessageBody: string;
 };
 
-export const sentMessageCreator = () => ({ type: "SEND-MESSAGE" } as const);
+const APDATE_NEW_MESSAGE_BODY = "APDATE-NEW-MESSAGE-BODY";
+const SEND_MESSAGE = "SEND-MESSAGE";
+export const sentMessageCreator = () => ({ type: SEND_MESSAGE } as const);
 
 export const updateNewMessageBodyCreator = (body: string) => {
-  return { type: "APDATE-NEW-MESSAGE-BODY", body: body } as const;
+  return { type: APDATE_NEW_MESSAGE_BODY, body: body } as const;
 };
 
 let initialState: initialStatePropsType = {
@@ -50,8 +52,7 @@ let initialState: initialStatePropsType = {
   newMessageBody: "",
 };
 
-const APDATE_NEW_MESSAGE_BODY = "APDATE-NEW-MESSAGE-BODY";
-const SEND_MESSAGE = "SEND-MESSAGE";
+
 
 export function dialogReduser(
   state: ReduserInitialStateProps = initialState,

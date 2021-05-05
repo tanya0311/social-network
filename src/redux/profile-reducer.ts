@@ -11,9 +11,12 @@ export type ProfileReducerActionType =
   | addPostActionCreatorType
   | updateNewPostActionCreatorType;
 
-export const addPostActionCreator = () => ({ type: "ADD-POST" } as const);
+  const ADD_POST = "ADD-POST";
+const APDATE_NEW_POST = "APDATE-NEW-POST";
+
+export const addPostActionCreator = () => ({ type: ADD_POST } as const);
 export const onPostChangeAC = (newText: string) => {
-  return { type: "APDATE-NEW-POST", newText } as const;
+  return { type: APDATE_NEW_POST, newText } as const;
 };
 
 export type initialStateProps = {
@@ -43,8 +46,7 @@ let initialState: initialStateProps = {
 //   newPostText: "",
 // };
 
-const ADD_POST = "ADD-POST";
-const APDATE_NEW_POST = "APDATE-NEW-POST";
+
 
 export const profileReduser = (
   state: initialStateProps = initialState,

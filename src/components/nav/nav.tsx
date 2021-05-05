@@ -34,11 +34,18 @@ function Nav() {
             Settings
           </NavLink>
         </div>
+        <div className={s.item}>
+          <NavLink to="/users" activeClassName={s.activLink}>
+           Users
+          </NavLink>
+        </div>
+
       </nav>
 
       <div>
         <NavContainer />
       </div>
+      
     </div>
   );
 }
