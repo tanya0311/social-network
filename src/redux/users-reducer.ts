@@ -1,43 +1,23 @@
+type PhotosType = {
+  small: string;
+  large: string;
+};
+
 export type UsersPropsType = {
-  id: string
-  followed: boolean
-  name: string
-  photoURL:string
-  status: string
-  location: { country: string; city: string };
+  id: number;
+  followed: boolean;
+  name: string;
+  photos: PhotosType;
+  status: string;
+  location?: { country: string; city: string };
 };
 
 export type initialStatePropsType = {
   users: Array<UsersPropsType>;
 };
 
-let initialState: initialStatePropsType= {
-  users: [
-    {
-      id: "1u",
-      followed: true,
-      name: "Ana",
-      photoURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvWU2R4OlgX8OXZon0OT4lRsQttb9XaZX3Ug&usqp=CAU',
-      status: "hello world",
-      location: { country: "Belarus", city: "Minsk" },
-    },
-    {
-      id: "2u",
-      followed: false,
-      name: "Gleb",
-      photoURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTygNZj-_qkSsq3iucBBvqQPKQDJ-72E6o9T_dSiwMrzWHcu4KadOlxSLXGVVfZ8mYO1ec&usqp=CAU',
-      status: "hello world",
-      location: { country: "Poland", city: "Krakov" },
-    },
-    {
-      id: "3u",
-      followed: true,
-      name: "Nikita",
-      photoURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqN2ZnsPBr6i9jG4EAKDoFQR8x4Qfuodf5xup4iTygjI8-dgQ2f2DH3sa3cGAOn2FQvg&usqp=CAU',
-      status: "hello world",
-      location: { country: "Belarus", city: "Minsk" },
-    },
-  ],
+let initialState: initialStatePropsType = {
+  users: [],
 };
 
 const FOLLOW = "FOLLOW";
@@ -49,9 +29,9 @@ export type UsersReducerActionType =
   | ReturnType<typeof unfollowAC>
   | ReturnType<typeof setUsersAC>;
 
-export const followAC = (userID: string) => ({ type: FOLLOW, userID } as const);
+export const followAC = (userID: number) => ({ type: FOLLOW, userID } as const);
 
-export const unfollowAC = (userID: string) => {
+export const unfollowAC = (userID: number) => {
   return { type: UNFOLLOW, userID } as const;
 };
 
@@ -65,16 +45,17 @@ export const userReduser = (
 ): initialStatePropsType => {
   switch (action.type) {
     case FOLLOW:
-      
       return {
-        ...state, users: state.users.map((u) =>
+        ...state,
+        users: state.users.map((u) =>
           u.id === action.userID ? { ...u, followed: true } : u
         ),
       };
 
     case UNFOLLOW:
       return {
-        ...state, users: state.users.map((u) =>
+        ...state,
+        users: state.users.map((u) =>
           u.id === action.userID ? { ...u, followed: false } : u
         ),
       };

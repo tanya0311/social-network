@@ -9,10 +9,11 @@ import Users from "./Users";
 
 type MapStateToPropsType = {
   users: Array<UsersPropsType>
+
 };
 type MapDispathToPropsType = {
-  follow:(userID: string) =>void
-  unfollow:(userID: string) => void
+  follow:(userID: number) =>void
+  unfollow:(userID: number) => void
   setUsers:(users: Array<UsersPropsType>) =>void
 };
 
@@ -26,11 +27,10 @@ const mapStateToProps = (state: RootReducersType):MapStateToPropsType => {
 const mapDispathToProps = (dispatch: Dispatch):MapDispathToPropsType=> {
   
   return {
-    follow:(userID: string) => {
-      
+    follow:(userID: number) => {
       dispatch(followAC(userID));
     },
-    unfollow:(userID: string) => {
+    unfollow:(userID: number) => {
       dispatch(unfollowAC(userID));
     },
     setUsers:(users: Array<UsersPropsType>) => {
