@@ -17,7 +17,7 @@ type MapDispathToPropsType = {
   setUsers:(users: Array<UsersPropsType>) =>void
 };
 
-export type UserPropsType = MapStateToPropsType & MapDispathToPropsType;
+export type UserPropsType = MapStateToPropsType & MapDispathToPropsType  ;
 
 const mapStateToProps = (state: RootReducersType):MapStateToPropsType => {
   return {
