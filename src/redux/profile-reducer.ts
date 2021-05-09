@@ -11,13 +11,8 @@ export type ProfileReducerActionType =
   | addPostActionCreatorType
   | updateNewPostActionCreatorType;
 
-  const ADD_POST = "ADD-POST";
+const ADD_POST = "ADD-POST";
 const APDATE_NEW_POST = "APDATE-NEW-POST";
-
-export const addPostActionCreator = () => ({ type: ADD_POST } as const);
-export const onPostChangeAC = (newText: string) => {
-  return { type: APDATE_NEW_POST, newText } as const;
-};
 
 export type initialStateProps = {
   PostData: Array<PostDataProps>;
@@ -35,18 +30,6 @@ let initialState: initialStateProps = {
   ],
   newPostText: "",
 };
-// или другая запись типизации
-// let initialState= {
-//   PostData: [
-//     { id: "1", message: "hello", likeCount: 0 },
-//     { id: "2", message: "yes", likeCount: 5 },
-//     { id: "3", message: "hi", likeCount: 9 },
-//     { id: "3", message: "hi", likeCount: 9 },
-//   ] as Array<PostDataProps >,
-//   newPostText: "",
-// };
-
-
 
 export const profileReduser = (
   state: initialStateProps = initialState,
@@ -74,4 +57,9 @@ export const profileReduser = (
     default:
       return state;
   }
+};
+
+export const addPostActionCreator = () => ({ type: ADD_POST } as const);
+export const onPostChangeAC = (newText: string) => {
+  return { type: APDATE_NEW_POST, newText } as const;
 };

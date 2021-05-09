@@ -27,14 +27,41 @@ class Users extends React.Component<UserPropsType, UsersPropsType> {
         // this.props.setUsersTotalCount(response.data.totalCount);
       });
   };
+
+  createPages = (
+    pages: Array<number>, //массив со страницами
+    pagesCount: number, //количество стр
+    currentPage: number //текущая
+  ) => {
+    if (pagesCount > 10) {
+      if (currentPage > 5) {
+        for (let i = currentPage - 4; i <= currentPage + 5; i++) {
+          pages.push(i);
+          if (i == pagesCount) break;
+        }
+      } else {
+        for (let i = 1; i <= 10; i++) {
+          pages.push(i);
+          if (i == pagesCount) break;
+        }
+      }
+    } else {
+      for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
+      }
+    }
+  };
+
   render() {
     let pagesCount = Math.ceil(
       this.props.totalUsersCount / this.props.pageSize
     );
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-      pages.push(i);
-    }
+    let pages:Array<number> = [];
+    // for (let i = 1; i <= pagesCount; i++) {
+    //   pages.push(i);
+    // }
+
+    this.createPages(pages, pagesCount, this.props.currentPage);
 
     return (
       <div>

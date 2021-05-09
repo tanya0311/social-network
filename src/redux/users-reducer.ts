@@ -23,7 +23,7 @@ let initialState: initialStatePropsType = {
   users: [],
   pageSize: 5,
   totalUsersCount: 0,
-  currentPage: 2,
+  currentPage: 1,
 };
 
 const FOLLOW = "FOLLOW";
@@ -38,23 +38,6 @@ export type UsersReducerActionType =
   | ReturnType<typeof setUsersAC>
   | ReturnType<typeof setCurrentPageAC>
   | ReturnType<typeof setUsersTotalCountAC>;
-
-export const followAC = (userID: number) => ({ type: FOLLOW, userID } as const);
-
-export const unfollowAC = (userID: number) => {
-  return { type: UNFOLLOW, userID } as const;
-};
-
-export const setUsersAC = (users: Array<UsersPropsType>) => {
-  return { type: SET_USERS, users } as const;
-};
-
-export const setCurrentPageAC = (currentPage: number) => {
-  return { type: SET_CURRENT_PAGE, currentPage } as const;
-};
-export const setUsersTotalCountAC = (count: number) => {
-  return { type: SET_TOTAL_USERS_COUNT, count } as const;
-};
 
 export const userReduser = (
   state: initialStatePropsType = initialState,
@@ -89,4 +72,21 @@ export const userReduser = (
     default:
       return state;
   }
+};
+
+export const followAC = (userID: number) => ({ type: FOLLOW, userID } as const);
+
+export const unfollowAC = (userID: number) => {
+  return { type: UNFOLLOW, userID } as const;
+};
+
+export const setUsersAC = (users: Array<UsersPropsType>) => {
+  return { type: SET_USERS, users } as const;
+};
+
+export const setCurrentPageAC = (currentPage: number) => {
+  return { type: SET_CURRENT_PAGE, currentPage } as const;
+};
+export const setUsersTotalCountAC = (count: number) => {
+  return { type: SET_TOTAL_USERS_COUNT, count } as const;
 };
