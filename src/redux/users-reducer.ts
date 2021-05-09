@@ -14,20 +14,30 @@ export type UsersPropsType = {
 
 export type initialStatePropsType = {
   users: Array<UsersPropsType>;
+  pageSize: number;
+  totalUsersCount: number;
+  currentPage: number;
 };
 
 let initialState: initialStatePropsType = {
   users: [],
+  pageSize: 5,
+  totalUsersCount: 0,
+  currentPage: 2,
 };
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
+const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
+const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT";
 
 export type UsersReducerActionType =
   | ReturnType<typeof followAC>
   | ReturnType<typeof unfollowAC>
-  | ReturnType<typeof setUsersAC>;
+  | ReturnType<typeof setUsersAC>
+  | ReturnType<typeof setCurrentPageAC>
+  | ReturnType<typeof setUsersTotalCountAC>;
 
 export const followAC = (userID: number) => ({ type: FOLLOW, userID } as const);
 
@@ -37,6 +47,13 @@ export const unfollowAC = (userID: number) => {
 
 export const setUsersAC = (users: Array<UsersPropsType>) => {
   return { type: SET_USERS, users } as const;
+};
+
+export const setCurrentPageAC = (currentPage: number) => {
+  return { type: SET_CURRENT_PAGE, currentPage } as const;
+};
+export const setUsersTotalCountAC = (count: number) => {
+  return { type: SET_TOTAL_USERS_COUNT, count } as const;
 };
 
 export const userReduser = (
@@ -61,7 +78,13 @@ export const userReduser = (
       };
 
     case SET_USERS:
-      return { ...state, users: [...state.users, ...action.users] };
+      // return { ...state, users: [...state.users, ...action.users] };
+      return { ...state, users: action.users };
+
+    case SET_CURRENT_PAGE:
+      return { ...state, currentPage: action.currentPage };
+    case SET_TOTAL_USERS_COUNT:
+      return { ...state, totalUsersCount: action.count };
 
     default:
       return state;
