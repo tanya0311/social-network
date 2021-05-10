@@ -9,6 +9,7 @@ type UsersType = {
   totalUsersCount: number;
   pageSize: number;
   currentPage: number;
+  // isFetching:boolean
   unfollow: (userID: number) => void;
   follow: (userID: number) => void;
   onPageChanged: (pageNumber: number) => void;
