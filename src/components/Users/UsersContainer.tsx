@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import { RootReducersType } from "../../redux/redux-store";
 import {
   follow,
@@ -13,7 +12,6 @@ import {
   UsersPropsType,
 } from "../../redux/users-reducer";
 import Users from "./Users";
-import s from "./Users.module.css";
 import { Preloader } from "../OtherInterface/Preloader/Preloader";
 
 type MapStateToPropsType = {
@@ -73,7 +71,6 @@ class UsersContainer extends React.Component<UserPropsType, UsersPropsType> {
           unfollow={this.props.unfollow}
           follow={this.props.follow}
           onPageChanged={this.onPageChanged}
-          // isFetching={this.props.isFetching}
         />
       </div>
     );
@@ -89,47 +86,12 @@ const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
     isFetching: state.userPage.isFetching,
   };
 };
-// const mapDispathToProps = (dispatch: Dispatch): MapDispathToPropsType => {
-//   return {
-//     follow: (userID: number) => {
-//       dispatch(followAC(userID));
-//     },
-//     unfollow: (userID: number) => {
-//       dispatch(unfollowAC(userID));
-//     },
-//     setUsers: (users: Array<UsersPropsType>) => {
-//       dispatch(setUsersAC(users));
-//     },
-//     setCurrentPage: (newPage: number) => {
-//       dispatch(setCurrentPageAC(newPage));
-//     },
-//     setUsersTotalCount: (totalCount: number) => {
-//       dispatch(setUsersTotalCountAC(totalCount));
-//     },
-//     toggleIsFetching: (isFetching: boolean) => {
-//       dispatch(toggleIsFetchingAC(isFetching));
-//     },
-//   };
-// };
-
-// const UsersContainer1 = connect(
-//   mapStateToProps,
-//   mapDispathToProps
-// )(UsersApiComponent);
-
-let name = 10;
-let user = {
-  // name:name
-  // other
-  name,
-};
-console.log(user.name);
 
 export default connect(mapStateToProps, {
   follow,
   unfollow,
   setUsers,
-   // other
+  // other
   setCurrentPage: setCurrentPage,
   setUsersTotalCount: setUsersTotalCount,
   toggleIsFetching: toggleIsFetching,

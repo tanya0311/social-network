@@ -1,15 +1,15 @@
 import React from "react";
 import s from "./Users.module.css";
 import { UsersPropsType } from "../../redux/users-reducer";
-
 import userPhoto from "../../assest/imagesUsersPage/userPhoto.png";
+import { NavLink } from "react-router-dom";
+
 
 type UsersType = {
   users: Array<UsersPropsType>;
   totalUsersCount: number;
   pageSize: number;
   currentPage: number;
-  // isFetching:boolean
   unfollow: (userID: number) => void;
   follow: (userID: number) => void;
   onPageChanged: (pageNumber: number) => void;
@@ -63,11 +63,13 @@ function Users(props: UsersType) {
         <div key={el.id}>
           <span>
             <div>
+              <NavLink to={'/profile/' + el.id}>
               <img
                 src={el.photos.small != null ? el.photos.small : userPhoto}
                 className={s.userPhoto}
                 alt={"avatar"}
               />
+              </NavLink>
             </div>
             <div>
               {el.followed ? (

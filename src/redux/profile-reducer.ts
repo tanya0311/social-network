@@ -3,20 +3,44 @@ export type PostDataProps = {
   message: string;
   likeCount: number;
 };
-
-export type addPostActionCreatorType = ReturnType<typeof addPostActionCreator>;
+export type ContactsType={
+  facebook: string;
+  website: null;
+  vk: string;
+  twitter: string;
+  instagram: string;
+  youtube: null;
+  github: string;
+  mainLink: null;
+}
+export type ProfileUserPropsType = {
+  aboutMe: string;
+  contacts: ContactsType
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  userId: number;
+  photos: {
+    small: string;
+    large: string;
+  };
+};
+export type addPostActionCreatorType = ReturnType<typeof addPostAC>;
 export type updateNewPostActionCreatorType = ReturnType<typeof onPostChangeAC>;
 
 export type ProfileReducerActionType =
   | addPostActionCreatorType
-  | updateNewPostActionCreatorType;
+  | updateNewPostActionCreatorType
+  | ReturnType<typeof setUserProfile>;
 
 const ADD_POST = "ADD-POST";
 const APDATE_NEW_POST = "APDATE-NEW-POST";
+const SET_USER_PROFILE = "SET-USER-PROFILE";
 
 export type initialStateProps = {
   PostData: Array<PostDataProps>;
   newPostText: string;
+  profile: ProfileUserPropsType | null;
 };
 // или другая запись типизации
 //  export type initialStateProps = typeof initialState;
@@ -29,6 +53,7 @@ let initialState: initialStateProps = {
     { id: "3", message: "hi", likeCount: 9 },
   ],
   newPostText: "",
+  profile: null,
 };
 
 export const profileReduser = (
@@ -53,13 +78,19 @@ export const profileReduser = (
     case APDATE_NEW_POST: {
       return { ...state, newPostText: action.newText };
     }
+    case SET_USER_PROFILE: {
+      return { ...state, profile: action.profile };
+    }
 
     default:
       return state;
   }
 };
 
-export const addPostActionCreator = () => ({ type: ADD_POST } as const);
+export const addPostAC = () => ({ type: ADD_POST } as const);
 export const onPostChangeAC = (newText: string) => {
   return { type: APDATE_NEW_POST, newText } as const;
+};
+export const setUserProfile = (profile: ProfileUserPropsType) => {
+  return { type: SET_USER_PROFILE, profile } as const;
 };

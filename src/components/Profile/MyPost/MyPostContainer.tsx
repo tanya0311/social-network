@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  addPostActionCreator,
+  addPostAC,
   initialStateProps,
   onPostChangeAC,
 } from "../../../redux/profile-reducer";
@@ -20,6 +20,7 @@ const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
   return {
     PostData: state.profilePage.PostData,
     newPostText: state.profilePage.newPostText,
+    profile:state.profilePage.profile
   };
 };
 const mapDispathToProps = (dispatch: Dispatch): MapDispathToPropsType => {
@@ -28,7 +29,7 @@ const mapDispathToProps = (dispatch: Dispatch): MapDispathToPropsType => {
       dispatch(onPostChangeAC(newText));
     },
     addPost: () => {
-      dispatch(addPostActionCreator());
+      dispatch(addPostAC());
     },
   };
 };
