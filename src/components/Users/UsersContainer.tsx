@@ -87,12 +87,11 @@ const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
   };
 };
 
-export default connect(mapStateToProps, {
+export default connect< MapStateToPropsType, MapDispathToPropsType, {}, RootReducersType>(mapStateToProps, {
   follow,
   unfollow,
   setUsers,
-  // other
-  setCurrentPage: setCurrentPage,
-  setUsersTotalCount: setUsersTotalCount,
-  toggleIsFetching: toggleIsFetching,
+  setCurrentPage,
+  setUsersTotalCount,
+  toggleIsFetching,
 })(UsersContainer);

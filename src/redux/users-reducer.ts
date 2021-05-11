@@ -22,7 +22,7 @@ export type initialStatePropsType = {
 
 let initialState: initialStatePropsType = {
   users: [],
-  pageSize: 5,
+  pageSize: 20,
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: true,

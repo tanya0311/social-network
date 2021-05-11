@@ -33,5 +33,5 @@ const mapDispathToProps = (dispatch: Dispatch): MapDispathToPropsType => {
     },
   };
 };
-const MyPostContainer = connect(mapStateToProps, mapDispathToProps)(MyPost);
+const MyPostContainer = connect<MapStateToPropsType, MapDispathToPropsType, {}, RootReducersType>(mapStateToProps, mapDispathToProps)(MyPost);
 export default MyPostContainer;
