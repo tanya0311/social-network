@@ -1,8 +1,9 @@
-import axios from "axios";
+
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { RouteComponentProps } from "react-router-dom";
+import { getProfileApi } from "../../api/API";
 import {
   ProfileUserPropsType,
   setUserProfile,
@@ -38,13 +39,12 @@ class ProfileContainer extends React.Component<PropsType> {
     if (!userId) {
       userId = 2;
     }
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0//profile/` + userId)
-      .then((response) => {
-        // this.props.toggleIsFetching(false);
-        this.props.setUserProfile(response.data);
-        // this.props.setUsersTotalCount(response.data.totalCount);
-      });
+
+    getProfileApi.getProfile(userId).then((data) => {
+      // this.props.toggleIsFetching(false);
+      this.props.setUserProfile(data);
+      // this.props.setUsersTotalCount(response.data.totalCount);
+    });
   }
   render() {
     return (
@@ -56,6 +56,9 @@ class ProfileContainer extends React.Component<PropsType> {
 }
 let withUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect<MapStateToPropsType, MapDispathToPropsType, {}, RootReducersType>(mapStateToProps, { setUserProfile })(
-  withUrlDataContainerComponent
-);
+export default connect<
+  MapStateToPropsType,
+  MapDispathToPropsType,
+  {},
+  RootReducersType
+>(mapStateToProps, { setUserProfile })(withUrlDataContainerComponent);

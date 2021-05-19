@@ -13,6 +13,7 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import { Preloader } from "../OtherInterface/Preloader/Preloader";
+import {  getUsersApi } from "../../api/API";
 
 type MapStateToPropsType = {
   users: Array<UsersPropsType>;
@@ -35,34 +36,22 @@ export type UserPropsType = MapStateToPropsType & MapDispathToPropsType;
 class UsersContainer extends React.Component<UserPropsType, UsersPropsType> {
   componentDidMount() {
     this.props.toggleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
-        this.props.setUsersTotalCount(response.data.totalCount);
-      });
+    // getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
+      getUsersApi.getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(data.items);
+      this.props.setUsersTotalCount(data.totalCount);
+    });
   }
   onPageChanged = (pageNumber: number) => {
     this.props.setCurrentPage(pageNumber);
     this.props.toggleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
-        // this.props.setUsersTotalCount(response.data.totalCount);
-      });
+    getUsersApi.getUsers(pageNumber, this.props.pageSize).then((data) => {
+   
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(data.items);
+      // this.props.setUsersTotalCount(response.data.totalCount);
+    });
   };
 
   render() {
