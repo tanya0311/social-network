@@ -4,6 +4,7 @@ import { UsersPropsType } from "../../redux/users-reducer";
 import userPhoto from "../../assest/imagesUsersPage/userPhoto.png";
 import { NavLink } from "react-router-dom";
 import { followApi, unFollowApi } from "../../api/API";
+import { UserPropsType } from "./UsersContainer";
 
 type UsersType = {
   users: Array<UsersPropsType>;
@@ -13,7 +14,15 @@ type UsersType = {
   unfollow: (userID: number) => void;
   follow: (userID: number) => void;
   onPageChanged: (pageNumber: number) => void;
+  // followingInProgress: boolean;
+  followingInProgress: number[];
+  toggleFollowingInProgress: (isFetching: boolean, id: number) => void;
 };
+type UsersType2 = {
+  onPageChanged: (pageNumber: number) => void;
+};
+// for {/* <Users {...this.props} onPageChanged={this.onPageChanged} /> */}
+// function Users(props: UsersType2 & UserPropsType) {
 
 function Users(props: UsersType) {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -74,11 +83,16 @@ function Users(props: UsersType) {
             <div>
               {el.followed ? (
                 <button
+                  disabled={props.followingInProgress.some(
+                    (id) => id === el.id
+                  )}
                   onClick={() => {
+                    props.toggleFollowingInProgress(true, el.id);
                     unFollowApi.unFollow(el.id).then((data) => {
                       if (data.resultCode === 0) {
                         props.unfollow(el.id);
                       }
+                      props.toggleFollowingInProgress(false, el.id);
                     });
                   }}
                 >
@@ -86,11 +100,16 @@ function Users(props: UsersType) {
                 </button>
               ) : (
                 <button
+                  disabled={props.followingInProgress.some(
+                    (id) => id === el.id
+                  )}
                   onClick={() => {
+                    props.toggleFollowingInProgress(true, el.id);
                     followApi.follow(el.id).then((data) => {
                       if (data.resultCode === 0) {
                         props.follow(el.id);
                       }
+                      props.toggleFollowingInProgress(false, el.id);
                     });
                   }}
                 >
