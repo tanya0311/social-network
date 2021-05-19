@@ -5,10 +5,8 @@ export type initialStatePropsType = {
   id: null | number;
   email: null | string;
   login: null | string;
-  isAuth: boolean
+  isAuth: boolean;
 };
-
-
 
 let initialState: initialStatePropsType = {
   id: null,
@@ -17,7 +15,7 @@ let initialState: initialStatePropsType = {
   isAuth: false,
 };
 
-const SET_USER_DATA = "SET_USER_DATA";  
+const SET_USER_DATA = "SET_USER_DATA";
 
 export function authReduser(
   state: initialStatePropsType = initialState,
@@ -25,15 +23,12 @@ export function authReduser(
 ): initialStatePropsType {
   switch (action.type) {
     case SET_USER_DATA:
-      // debugger
-      return { ...state, ...action.data, isAuth:true };
+      return { ...state, ...action.data, isAuth: true };
     default:
       return state;
   }
 }
-export const setAuthUserData = (
-  id: null | number,
-  email: null | string,
-  login: null | string
-) => ( { type: SET_USER_DATA , data:{ id,  login, email }}  as const);
-
+export const setAuthUserData = (id: number, email: string, login: string) => {
+  // debugger
+  return { type: SET_USER_DATA, data: { id, login, email } } as const;
+};

@@ -10,18 +10,13 @@ import { RootReducersType } from "../../redux/redux-store";
 import { Preloader } from "../OtherInterface/Preloader/Preloader";
 import Header from "./Header";
 
-// type MapStateToPropsType = initialStatePropsType;
 type MapStateToPropsType = {
-  isAuth:boolean
+  isAuth: boolean;
   login: null | string;
 };
 
 type MapDispathToPropsType = {
-  setAuthUserData: (
-    id: null | number,
-    email: null | string,
-    login: null | string
-  ) => void;
+  setAuthUserData: (id: number, email: string, login: string) => void;
 };
 export type AuthPropsType = MapStateToPropsType & MapDispathToPropsType;
 
@@ -36,8 +31,9 @@ class HeaderContainer extends React.Component<
       })
       .then((response) => {
         if (response.data.resultCode === 0) {
+          // debugger
           let { id, email, login } = response.data.data.login;
-          this.props.setAuthUserData(id,  email, login);
+          this.props.setAuthUserData(id, email, login);
         }
       });
   }
@@ -46,7 +42,7 @@ class HeaderContainer extends React.Component<
     return (
       <div>
         {/* <Header {...this.props} /> */}
-         <Header login={this.props.login} isAuth={this.props.isAuth} />
+        <Header login={this.props.login} isAuth={this.props.isAuth} />
       </div>
     );
   }

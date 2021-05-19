@@ -1,8 +1,10 @@
  .app-wrapper {
     display: grid;
-    width: 1200px;
+    /* width: 1200px; */
+    width: 100%;
     grid-template-rows: 100px 1fr;
-    grid-template-columns: 2fr 10fr;
+    /* grid-template-columns: 2fr 10fr; */
+    grid-template-columns: 20% 80%;
     grid-template-areas:
             'h h'
             'n c';
