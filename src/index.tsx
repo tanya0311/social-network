@@ -3,8 +3,8 @@ import * as serviceWorker from "./serviceWorker";
 import ReactDOM from "react-dom";
 import React from "react";
 import App from "./App";
-import store from "./redux/redux-store";
 import { Provider } from "react-redux";
+import { store } from "./redux/redux-store";
 
 ReactDOM.render(
   <React.StrictMode>

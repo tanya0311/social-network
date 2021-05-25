@@ -1,4 +1,4 @@
-export type ActionType = ReturnType<typeof setAuthUserData>;
+export type AuthActionType = ReturnType<typeof setAuthUserData>;
 
 
 export type initialStatePropsType = {
@@ -19,7 +19,7 @@ const SET_USER_DATA = "SET_USER_DATA";
 
 export function authReduser(
   state: initialStatePropsType = initialState,
-  action: ActionType
+  action: AuthActionType
 ): initialStatePropsType {
   switch (action.type) {
     case SET_USER_DATA:

@@ -3,7 +3,7 @@ import s from "./Users.module.css";
 import { UsersPropsType } from "../../redux/users-reducer";
 import userPhoto from "../../assest/imagesUsersPage/userPhoto.png";
 import { NavLink } from "react-router-dom";
-import { followApi, unFollowApi } from "../../api/API";
+import { getUsersApi } from "../../api/API";
 import { UserPropsType } from "./UsersContainer";
 
 type UsersType = {
@@ -16,7 +16,7 @@ type UsersType = {
   onPageChanged: (pageNumber: number) => void;
   // followingInProgress: boolean;
   followingInProgress: number[];
-  toggleFollowingInProgress: (isFetching: boolean, id: number) => void;
+  // toggleFollowingInProgress: (isFetching: boolean, id: number) => void;
 };
 type UsersType2 = {
   onPageChanged: (pageNumber: number) => void;
@@ -87,13 +87,7 @@ function Users(props: UsersType) {
                     (id) => id === el.id
                   )}
                   onClick={() => {
-                    props.toggleFollowingInProgress(true, el.id);
-                    unFollowApi.unFollow(el.id).then((data) => {
-                      if (data.resultCode === 0) {
-                        props.unfollow(el.id);
-                      }
-                      props.toggleFollowingInProgress(false, el.id);
-                    });
+                    props.unfollow(el.id);
                   }}
                 >
                   Unfollow
@@ -104,13 +98,7 @@ function Users(props: UsersType) {
                     (id) => id === el.id
                   )}
                   onClick={() => {
-                    props.toggleFollowingInProgress(true, el.id);
-                    followApi.follow(el.id).then((data) => {
-                      if (data.resultCode === 0) {
-                        props.follow(el.id);
-                      }
-                      props.toggleFollowingInProgress(false, el.id);
-                    });
+                    props.follow(el.id);
                   }}
                 >
                   Follow

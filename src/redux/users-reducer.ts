@@ -1,3 +1,7 @@
+import { Dispatch } from "redux";
+import { getUsersApi } from "../api/API";
+import { ThunkType } from "./redux-store";
+
 type PhotosType = {
   small: string | null;
   large: string | null;
@@ -120,4 +124,47 @@ export const toggleFollowingInProgress = (
   userId: number
 ) => {
   return { type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId } as const;
+};
+
+export const getUsersThunkCreator = (
+  currentPage: number,
+  pageSize: number
+): ThunkType => {
+  // return (dispath: Dispatch<UsersReducerActionType >) => {
+  return (dispath) => {
+    // debugger
+    dispath(toggleIsFetching(true));
+    // getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
+    getUsersApi.getUsers(currentPage, pageSize).then((data) => {
+      debugger
+      dispath(toggleIsFetching(false));
+      dispath(setUsers(data.items));
+      dispath(setUsersTotalCount(data.totalCount));
+    });
+  };
+};
+
+export const followTC = (id: number): ThunkType => {
+  // return (dispath: Dispatch<UsersReducerActionType >) => {
+  return (dispath) => {
+    dispath(toggleFollowingInProgress(true, id));
+    getUsersApi.follow(id).then((data) => {
+      if (data.resultCode === 0) {
+        dispath(follow(id));
+      }
+      dispath(toggleFollowingInProgress(false, id));
+    });
+  };
+};
+export const unfollowTC = (id: number): ThunkType => {
+  // return (dispath: Dispatch<UsersReducerActionType >) => {
+  return (dispath) => {
+    dispath(toggleFollowingInProgress(true, id));
+    getUsersApi.unFollow(id).then((data) => {
+      if (data.resultCode === 0) {
+        dispath(unfollow(id));
+      }
+      dispath(toggleFollowingInProgress(false, id));
+    });
+  };
 };
