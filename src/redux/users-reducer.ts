@@ -131,40 +131,40 @@ export const getUsersThunkCreator = (
   pageSize: number
 ): ThunkType => {
   // return (dispath: Dispatch<UsersReducerActionType >) => {
-  return (dispath) => {
+  return (dispatch) => {
     // debugger
-    dispath(toggleIsFetching(true));
+    dispatch(toggleIsFetching(true));
     // getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
     getUsersApi.getUsers(currentPage, pageSize).then((data) => {
-      debugger
-      dispath(toggleIsFetching(false));
-      dispath(setUsers(data.items));
-      dispath(setUsersTotalCount(data.totalCount));
+      debugger;
+      dispatch(toggleIsFetching(false));
+      dispatch(setUsers(data.items));
+      dispatch(setUsersTotalCount(data.totalCount));
     });
   };
 };
 
 export const followTC = (id: number): ThunkType => {
   // return (dispath: Dispatch<UsersReducerActionType >) => {
-  return (dispath) => {
-    dispath(toggleFollowingInProgress(true, id));
+  return (dispatch) => {
+    dispatch(toggleFollowingInProgress(true, id));
     getUsersApi.follow(id).then((data) => {
       if (data.resultCode === 0) {
-        dispath(follow(id));
+        dispatch(follow(id));
       }
-      dispath(toggleFollowingInProgress(false, id));
+      dispatch(toggleFollowingInProgress(false, id));
     });
   };
 };
 export const unfollowTC = (id: number): ThunkType => {
   // return (dispath: Dispatch<UsersReducerActionType >) => {
-  return (dispath) => {
-    dispath(toggleFollowingInProgress(true, id));
+  return (dispatch) => {
+    dispatch(toggleFollowingInProgress(true, id));
     getUsersApi.unFollow(id).then((data) => {
       if (data.resultCode === 0) {
-        dispath(unfollow(id));
+        dispatch(unfollow(id));
       }
-      dispath(toggleFollowingInProgress(false, id));
+      dispatch(toggleFollowingInProgress(false, id));
     });
   };
 };

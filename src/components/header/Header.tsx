@@ -5,6 +5,7 @@ import { AuthPropsType } from "./HeaderContainer";
 
 
 type HeaderPropsType = {
+  // email:null | string;
 	isAuth: boolean
 	login: string | null
 }
@@ -18,7 +19,7 @@ function Header(props: HeaderPropsType) {
         alt=""
       />
       <div className={s.loginBlock}>
-        {props.isAuth ? <div>{props.login} hello </div>  : <NavLink to={"/login"}>Login</NavLink>}
+        {props.isAuth ? <div>hello: {props.login}   </div>  : <NavLink to={"/login"}>Login</NavLink>}
       </div>
     </header>
   );

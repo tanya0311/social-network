@@ -1,21 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
+  getAuthUserDataTC,
   initialStatePropsType,
   setAuthUserData,
 } from "../../redux/auth-reducer";
 import { RootReducersType } from "../../redux/redux-store";
 import { Preloader } from "../OtherInterface/Preloader/Preloader";
 import Header from "./Header";
-import { getHeaderApi } from "../../api/API";
+import { getHeaderAuthApi } from "../../api/API";
 
 type MapStateToPropsType = {
+  // email:null | string;
   isAuth: boolean;
   login: null | string;
 };
 
 type MapDispathToPropsType = {
-  setAuthUserData: (id: number, email: string, login: string) => void;
+  // setAuthUserData: (id: number, email: string, login: string) => void;
+  getAuthUserDataTC: () => void;
 };
 export type AuthPropsType = MapStateToPropsType & MapDispathToPropsType;
 
@@ -24,12 +27,13 @@ class HeaderContainer extends React.Component<
   initialStatePropsType
 > {
   componentDidMount() {
-    getHeaderApi.getHeader().then((data) => {
-      if (data.resultCode === 0) {
-        let { id, email, login } = data.data.login;
-        this.props.setAuthUserData(id, email, login);
-      }
-    });
+    this.props.getAuthUserDataTC();
+    // getHeaderAuthApi.authMe().then((data) => {
+    //   if (data.resultCode === 0) {
+    //     let { id, email, login } = data.data;
+    //     this.props.setAuthUserData(id, email, login);
+    //   }
+    // });
   }
 
   render() {
@@ -56,4 +60,4 @@ export default connect<
   MapDispathToPropsType,
   {},
   RootReducersType
->(mapStateToProps, { setAuthUserData })(HeaderContainer);
+>(mapStateToProps, { getAuthUserDataTC })(HeaderContainer);

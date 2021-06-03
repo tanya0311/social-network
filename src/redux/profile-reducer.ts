@@ -1,3 +1,6 @@
+import { getUsersApi } from "../api/API";
+import { ThunkType } from "./redux-store";
+
 export type PostDataProps = {
   id: string;
   message: string;
@@ -93,4 +96,11 @@ export const onPostChangeAC = (newText: string) => {
 };
 export const setUserProfile = (profile: ProfileUserPropsType) => {
   return { type: SET_USER_PROFILE, profile } as const;
+};
+export const getUserProfileTC = (userId:number): ThunkType =>(dispatch)=> {
+  getUsersApi.getProfile(userId).then((data) => {
+    // this.props.toggleIsFetching(false);
+  dispatch(setUserProfile(data)); //! ???
+    // this.props.setUsersTotalCount(response.data.totalCount);
+  });
 };

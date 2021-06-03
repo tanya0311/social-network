@@ -3,8 +3,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { RouteComponentProps } from "react-router-dom";
-import { getProfileApi } from "../../api/API";
+import {  getUsersApi } from "../../api/API";
 import {
+  getUserProfileTC,
   ProfileUserPropsType,
   setUserProfile,
 } from "../../redux/profile-reducer";
@@ -15,7 +16,9 @@ type MapStateToPropsType = {
   profile: ProfileUserPropsType | null;
 };
 type MapDispathToPropsType = {
-  setUserProfile: (profile: ProfileUserPropsType) => void;
+  // setUserProfile: (profile: ProfileUserPropsType) => void;
+  getUserProfileTC: (userId:number) => void;
+
 };
 
 export type ProfileContainerType = MapStateToPropsType & MapDispathToPropsType;
@@ -39,12 +42,10 @@ class ProfileContainer extends React.Component<PropsType> {
     if (!userId) {
       userId = 2;
     }
-
-    getProfileApi.getProfile(userId).then((data) => {
-      // this.props.toggleIsFetching(false);
-      this.props.setUserProfile(data);
-      // this.props.setUsersTotalCount(response.data.totalCount);
-    });
+this.props.getUserProfileTC(userId)
+    // getUsersApi.getProfile(userId).then((data) => {
+    //   this.props.setUserProfile(data);
+    // });
   }
   render() {
     return (
@@ -61,4 +62,4 @@ export default connect<
   MapDispathToPropsType,
   {},
   RootReducersType
->(mapStateToProps, { setUserProfile })(withUrlDataContainerComponent);
+>(mapStateToProps, { getUserProfileTC })(withUrlDataContainerComponent);

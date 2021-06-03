@@ -20,18 +20,19 @@ export const getUsersApi = {
   unFollow(id: number) {
     return instance.delete(`follow/${id}`).then((response) => response.data);
   },
-};
-
-export const getHeaderApi = {
-  getHeader() {
-    return instance.get(`auth/me`).then((response) => response.data);
-  },
-};
-export const getProfileApi = {
   getProfile(userId: number) {
     return instance.get(`profile/${userId}`).then((response) => response.data);
   },
 };
+
+export const getHeaderAuthApi = {
+  authMe() {
+    return instance.get(`auth/me`).then((response) => response.data);
+  },
+};
+// export const getProfileApi = {
+ 
+// };
 
 //! до рефакторинга кода
 // export type getUsersType={

@@ -1,5 +1,7 @@
-export type AuthActionType = ReturnType<typeof setAuthUserData>;
+import { getHeaderAuthApi } from "../api/API";
+import { ThunkType } from "./redux-store";
 
+export type AuthActionType = ReturnType<typeof setAuthUserData>;
 
 export type initialStatePropsType = {
   id: null | number;
@@ -31,4 +33,13 @@ export function authReduser(
 export const setAuthUserData = (id: number, email: string, login: string) => {
   // debugger
   return { type: SET_USER_DATA, data: { id, login, email } } as const;
+};
+
+export const getAuthUserDataTC = (): ThunkType => (dispatch) => {
+  getHeaderAuthApi.authMe().then((data) => {
+    if (data.resultCode === 0) {
+      let { id, email, login } = data.data;
+      dispatch(setAuthUserData(id, email, login));
+    }
+  });
 };
