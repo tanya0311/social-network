@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from "react";
+import { Redirect } from "react-router";
 import DialogItem from "./DialogItem/DialogItem";
 import s from "./Dialogs.module.css";
 import { DialogPropsType } from "./DialogsContainer";
@@ -21,6 +22,9 @@ function Dialog(props: DialogPropsType) {
     props.updateNewMessage(body);
   };
 
+  // alert(props.isAuth)
+  // if (props.isAuth === false) return <Redirect to={"/login"} />;
+  if (!props.isAuth) return <Redirect to={"/login"} />;
   return (
     <div className={s.dialogs}>
       <div className={s.dialogItems}>{dialogsElement}</div>
