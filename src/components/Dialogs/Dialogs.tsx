@@ -22,9 +22,6 @@ function Dialog(props: DialogPropsType) {
     props.updateNewMessage(body);
   };
 
-  // alert(props.isAuth)
-  // if (props.isAuth === false) return <Redirect to={"/login"} />;
-  if (!props.isAuth) return <Redirect to={"/login"} />;
   return (
     <div className={s.dialogs}>
       <div className={s.dialogItems}>{dialogsElement}</div>

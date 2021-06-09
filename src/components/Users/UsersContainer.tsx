@@ -42,15 +42,15 @@ export type UserPropsType = MapStateToPropsType & MapDispathToPropsType;
 class UsersContainer extends React.Component<UserPropsType, UsersPropsType> {
   componentDidMount() {
     // debugger
-    // this.props.getUsersThunkCreator(
-    //   this.props.currentPage,
-    //   this.props.pageSize
-    // );
+    this.props.getUsersThunkCreator(
+      this.props.currentPage,
+      this.props.pageSize
+    );
   }
   onPageChanged = (pageNumber: number) => {
     // this.props.setCurrentPage(pageNumber);
 
-    // this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
+    this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
   };
 
   render() {

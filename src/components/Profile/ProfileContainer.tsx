@@ -1,26 +1,29 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect, withRouter } from "react-router";
+import { withRouter } from "react-router";
 import { RouteComponentProps } from "react-router-dom";
-import { getUsersApi } from "../../api/API";
+import {
+  MapStateToPropsWithRedirectType,
+  withAuthRedirect,
+} from "../../hoc/AuthRedirect";
 import {
   getUserProfileTC,
   ProfileUserPropsType,
-  setUserProfile,
 } from "../../redux/profile-reducer";
 import { RootReducersType } from "../../redux/redux-store";
 import Profile from "./Profile";
 
 type MapStateToPropsType = {
   profile: ProfileUserPropsType | null;
-  isAuth: boolean;
 };
 type MapDispathToPropsType = {
   // setUserProfile: (profile: ProfileUserPropsType) => void;
   getUserProfileTC: (userId: number) => void;
 };
 
-export type ProfileContainerType = MapStateToPropsType & MapDispathToPropsType;
+export type ProfileContainerType = MapStateToPropsWithRedirectType &
+  MapStateToPropsType &
+  MapDispathToPropsType;
 
 type PathParamsType = {
   userId: string;
@@ -31,7 +34,6 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerType;
 const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
   return {
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth,
   };
 };
 
@@ -43,12 +45,8 @@ class ProfileContainer extends React.Component<PropsType> {
       userId = 2;
     }
     this.props.getUserProfileTC(userId);
-    // getUsersApi.getProfile(userId).then((data) => {
-    //   this.props.setUserProfile(data);
-    // });
   }
   render() {
-    if (!this.props.isAuth) return <Redirect to={"/login"} />;
     return (
       <div>
         <Profile {...this.props} profile={this.props.profile} />
@@ -56,7 +54,11 @@ class ProfileContainer extends React.Component<PropsType> {
     );
   }
 }
-let withUrlDataContainerComponent = withRouter(ProfileContainer);
+
+let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
+
+// let withUrlDataContainerComponent = withRouter(ProfileContainer);
+let withUrlDataContainerComponent = withRouter(AuthRedirectComponent);
 
 export default connect<
   MapStateToPropsType,

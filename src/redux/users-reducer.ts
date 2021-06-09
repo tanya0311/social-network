@@ -136,7 +136,7 @@ export const getUsersThunkCreator = (
     dispatch(toggleIsFetching(true));
     // getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
     getUsersApi.getUsers(currentPage, pageSize).then((data) => {
-      debugger;
+      // debugger;
       dispatch(toggleIsFetching(false));
       dispatch(setUsers(data.items));
       dispatch(setUsersTotalCount(data.totalCount));
