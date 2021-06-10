@@ -7,8 +7,7 @@ import {
 } from "../../redux/dialog-reducer";
 import { RootReducersType } from "../../redux/redux-store";
 import Dialog from "./Dialogs";
-import { Dispatch } from "redux";
-import { Redirect } from "react-router-dom";
+import { compose, Dispatch } from "redux";
 import { withAuthRedirect } from "../../hoc/AuthRedirect";
 
 type MapStateToPropsType = {
@@ -23,12 +22,10 @@ export type DialogPropsType = MapStateToPropsType & MapDispathToPropsType;
 
 const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
   return {
-    state1: state.dialogPage,
-    // isAuth: state.auth.isAuth
+    state1: state.dialogPage
   };
 };
 const mapDispathToProps = (dispatch: Dispatch): MapDispathToPropsType => {
-  // debugger
   return {
     updateNewMessage: (body: string) => {
       dispatch(updateNewMessageBodyCreator(body));
@@ -40,10 +37,14 @@ const mapDispathToProps = (dispatch: Dispatch): MapDispathToPropsType => {
 };
 let AuthRedirectComponent = withAuthRedirect(Dialog);
 
-// const DialogsContainer = connect(mapStateToProps, mapDispathToProps)(Dialog);
-const DialogsContainer = connect(
+
+
+export default compose<React.ComponentType>(connect<
+  MapStateToPropsType,
+  MapDispathToPropsType,
+  {},
+  RootReducersType
+>(
   mapStateToProps,
   mapDispathToProps
-)(AuthRedirectComponent);
-
-export default DialogsContainer;
+),withAuthRedirect)(Dialog)
