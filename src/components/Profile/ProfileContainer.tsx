@@ -62,7 +62,7 @@ export default compose<React.ComponentType>(
     { getUserProfileTC }
   ),
   withRouter,
-  withAuthRedirect
+  // withAuthRedirect
 )(ProfileContainer);
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 
