@@ -8,7 +8,9 @@ import {
   withAuthRedirect,
 } from "../../hoc/AuthRedirect";
 import {
-  getUserProfileTC,
+  getUserProfileTC, 
+  getStatusTC,
+  updateStatusTC,
   ProfileUserPropsType,
 } from "../../redux/profile-reducer";
 import { RootReducersType } from "../../redux/redux-store";
@@ -16,10 +18,13 @@ import Profile from "./Profile";
 
 type MapStateToPropsType = {
   profile: ProfileUserPropsType | null;
+  status:string
 };
 type MapDispathToPropsType = {
   // setUserProfile: (profile: ProfileUserPropsType) => void;
   getUserProfileTC: (userId: number) => void;
+  getStatusTC:(userId: number) => void;
+  updateStatusTC:(status:string) => void;
 };
 
 export type ProfileContainerType = MapStateToPropsWithRedirectType &
@@ -35,6 +40,7 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerType;
 const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
   return {
     profile: state.profilePage.profile,
+    status: state.profilePage.status,
   };
 };
 
@@ -46,11 +52,12 @@ class ProfileContainer extends React.Component<PropsType> {
       userId = 2;
     }
     this.props.getUserProfileTC(userId);
+    this.props.getStatusTC(userId )
   }
   render() {
     return (
       <div>
-        <Profile {...this.props} profile={this.props.profile} />
+        <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatusTC} />
       </div>
     );
   }
@@ -59,7 +66,7 @@ class ProfileContainer extends React.Component<PropsType> {
 export default compose<React.ComponentType>(
   connect<MapStateToPropsType, MapDispathToPropsType, {}, RootReducersType>(
     mapStateToProps,
-    { getUserProfileTC }
+    { getUserProfileTC, getStatusTC, updateStatusTC }
   ),
   withRouter,
   // withAuthRedirect

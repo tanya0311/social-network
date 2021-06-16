@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { getUsersApi } from "../api/API";
+import { UsersApi } from "../api/API";
 import { ThunkType } from "./redux-store";
 
 type PhotosType = {
@@ -135,7 +135,7 @@ export const getUsersThunkCreator = (
     // debugger
     dispatch(toggleIsFetching(true));
     // getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
-    getUsersApi.getUsers(currentPage, pageSize).then((data) => {
+    UsersApi.getUsers(currentPage, pageSize).then((data) => {
       // debugger;
       dispatch(toggleIsFetching(false));
       dispatch(setUsers(data.items));
@@ -148,7 +148,7 @@ export const followTC = (id: number): ThunkType => {
   // return (dispath: Dispatch<UsersReducerActionType >) => {
   return (dispatch) => {
     dispatch(toggleFollowingInProgress(true, id));
-    getUsersApi.follow(id).then((data) => {
+    UsersApi.follow(id).then((data) => {
       if (data.resultCode === 0) {
         dispatch(follow(id));
       }
@@ -160,7 +160,7 @@ export const unfollowTC = (id: number): ThunkType => {
   // return (dispath: Dispatch<UsersReducerActionType >) => {
   return (dispatch) => {
     dispatch(toggleFollowingInProgress(true, id));
-    getUsersApi.unFollow(id).then((data) => {
+    UsersApi.unFollow(id).then((data) => {
       if (data.resultCode === 0) {
         dispatch(unfollow(id));
       }

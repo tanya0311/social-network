@@ -1,4 +1,4 @@
-import { getUsersApi } from "../api/API";
+import { ProfileApi } from "../api/API";
 import { ThunkType } from "./redux-store";
 
 export type PostDataProps = {
@@ -6,7 +6,7 @@ export type PostDataProps = {
   message: string;
   likeCount: number;
 };
-export type ContactsType={
+export type ContactsType = {
   facebook: string;
   website: null;
   vk: string;
@@ -15,10 +15,10 @@ export type ContactsType={
   youtube: null;
   github: string;
   mainLink: null;
-}
+};
 export type ProfileUserPropsType = {
   aboutMe: string;
-  contacts: ContactsType
+  contacts: ContactsType;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
@@ -30,20 +30,24 @@ export type ProfileUserPropsType = {
 };
 export type addPostActionCreatorType = ReturnType<typeof addPostAC>;
 export type updateNewPostActionCreatorType = ReturnType<typeof onPostChangeAC>;
+export type setStatusActionCreatorType = ReturnType<typeof setStatusAC>;
 
 export type ProfileReducerActionType =
   | addPostActionCreatorType
   | updateNewPostActionCreatorType
-  | ReturnType<typeof setUserProfile>;
+  | ReturnType<typeof setUserProfile>
+  | setStatusActionCreatorType;
 
 const ADD_POST = "ADD-POST";
-const APDATE_NEW_POST = "APDATE-NEW-POST";
+const UPDATE_NEW_POST = "UPDATE-NEW-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
+const SET_STATUS = "SET-STATUS";
 
 export type initialStateProps = {
   PostData: Array<PostDataProps>;
   newPostText: string;
   profile: ProfileUserPropsType | null;
+  status: string;
 };
 // или другая запись типизации
 //  export type initialStateProps = typeof initialState;
@@ -57,6 +61,7 @@ let initialState: initialStateProps = {
   ],
   newPostText: "",
   profile: null,
+  status: "",
 };
 
 export const profileReduser = (
@@ -78,8 +83,11 @@ export const profileReduser = (
         newPostText: "",
       };
 
-    case APDATE_NEW_POST: {
+    case UPDATE_NEW_POST: {
       return { ...state, newPostText: action.newText };
+    }
+    case SET_STATUS: {
+      return { ...state, status: action.status };
     }
     case SET_USER_PROFILE: {
       return { ...state, profile: action.profile };
@@ -92,15 +100,42 @@ export const profileReduser = (
 
 export const addPostAC = () => ({ type: ADD_POST } as const);
 export const onPostChangeAC = (newText: string) => {
-  return { type: APDATE_NEW_POST, newText } as const;
+  return { type: UPDATE_NEW_POST, newText } as const;
 };
 export const setUserProfile = (profile: ProfileUserPropsType) => {
   return { type: SET_USER_PROFILE, profile } as const;
 };
-export const getUserProfileTC = (userId:number): ThunkType =>(dispatch)=> {
-  getUsersApi.getProfile(userId).then((data) => {
-    // this.props.toggleIsFetching(false);
-  dispatch(setUserProfile(data)); //! ???
-    // this.props.setUsersTotalCount(response.data.totalCount);
-  });
+export const setStatusAC = (status: string) => {
+  return { type: SET_STATUS, status } as const;
 };
+export const getUserProfileTC =
+  (userId: number): ThunkType =>
+  (dispatch) => {
+    ProfileApi.getProfile(userId).then((data) => {
+      // this.props.toggleIsFetching(false);
+      dispatch(setUserProfile(data)); //! ???
+      // this.props.setUsersTotalCount(response.data.totalCount);
+    });
+  };
+export const getStatusTC =
+  (userId: number): ThunkType =>
+  (dispatch) => {
+    ProfileApi.getStatus(userId).then((response) => {
+      // this.props.toggleIsFetching(false);
+      dispatch(setStatusAC(response.data));
+      // this.props.setUsersTotalCount(response.data.totalCount);
+    });
+  };
+export const updateStatusTC =
+  (status:string): ThunkType =>
+  (dispatch) => {
+    ProfileApi.updateStatus(status).then((response) => {
+
+      // this.props.toggleIsFetching(false);
+      if(response.data.resultCode === 0){
+        dispatch(setStatusAC(response.data))
+      }
+      
+      // this.props.setUsersTotalCount(response.data.totalCount);
+    });
+  };
