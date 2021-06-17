@@ -40,6 +40,9 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerType;
 const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
   return {
     profile: state.profilePage.profile,
+
+        
+    //!
     status: state.profilePage.status,
   };
 };
@@ -52,6 +55,8 @@ class ProfileContainer extends React.Component<PropsType> {
       userId = 2;
     }
     this.props.getUserProfileTC(userId);
+
+    //!
     this.props.getStatusTC(userId )
   }
   render() {

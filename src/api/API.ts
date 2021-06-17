@@ -32,7 +32,7 @@ export const ProfileApi = {
     return instance.get(`profile/${userId}`).then((response) => response.data);
   },
   getStatus(userId: number){
-    return instance.get(`profile/status/` + userId);
+    return instance.get(`profile/status/${userId}`);
   },
   updateStatus(status:string){
     return instance.put(`profile/status`, {status:status});
