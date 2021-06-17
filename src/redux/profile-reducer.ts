@@ -41,9 +41,6 @@ export type ProfileReducerActionType =
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST = "UPDATE-NEW-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
-
-    
-    //!
 const SET_STATUS = "SET-STATUS";
 
 export type initialStateProps = {
@@ -64,9 +61,6 @@ let initialState: initialStateProps = {
   ],
   newPostText: "",
   profile: null,
-
-      
-    //!
   status: "",
 };
 
@@ -92,14 +86,9 @@ export const profileReduser = (
     case UPDATE_NEW_POST: {
       return { ...state, newPostText: action.newText };
     }
-
-        
-    //!
     case SET_STATUS: {
       return { ...state, status: action.status };
     }
-
-
     case SET_USER_PROFILE: {
       return { ...state, profile: action.profile };
     }
@@ -116,46 +105,34 @@ export const onPostChangeAC = (newText: string) => {
 export const setUserProfile = (profile: ProfileUserPropsType) => {
   return { type: SET_USER_PROFILE, profile } as const;
 };
-
-    
-    //!
 export const setStatusAC = (status: string) => {
   return { type: SET_STATUS, status } as const;
 };
-
-   
 export const getUserProfileTC =
   (userId: number): ThunkType =>
   (dispatch) => {
     ProfileApi.getProfile(userId).then((data) => {
       // this.props.toggleIsFetching(false);
-      dispatch(setUserProfile(data)); //! ???
+      dispatch(setUserProfile(data));
       // this.props.setUsersTotalCount(response.data.totalCount);
     });
   };
-
-
-      
-    //!
 export const getStatusTC =
   (userId: number): ThunkType =>
   (dispatch) => {
-    ProfileApi.getStatus(userId).then((response) => {
+    ProfileApi.getStatus(userId).then((data) => {
       // this.props.toggleIsFetching(false);
-      dispatch(setStatusAC(response.data));
+      dispatch(setStatusAC(data));
       // this.props.setUsersTotalCount(response.data.totalCount);
     });
   };
-
-      
-    //! 
 export const updateStatusTC =
   (status:string): ThunkType =>
   (dispatch) => {
-    ProfileApi.updateStatus(status).then((response) => {
+    ProfileApi.updateStatus(status).then((data) => {
 
       // this.props.toggleIsFetching(false);
-      if(response.data.resultCode === 0){
+      if(data.resultCode === 0){
         dispatch(setStatusAC(status))
       }
       
