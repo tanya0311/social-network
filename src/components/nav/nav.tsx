@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import s from "./nav.module.css";
 import NavContainer from "./NavContainer";
 
-
 function Nav() {
   return (
     <div>
@@ -36,16 +35,19 @@ function Nav() {
         </div>
         <div className={s.item}>
           <NavLink to="/users" activeClassName={s.activLink}>
-           Users
+            Users
           </NavLink>
         </div>
-
+        <div className={s.item}>
+          <NavLink to="/login" activeClassName={s.activLink}>
+            Login
+          </NavLink>
+        </div>
       </nav>
 
       <div>
         <NavContainer />
       </div>
-      
     </div>
   );
 }
