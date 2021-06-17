@@ -25,17 +25,26 @@ class ProfileStatus extends React.Component<ProfileStatusPrposType> {
   };
   onSatatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      status1: e.currentTarget.value
-    })
-   
+      status1: e.currentTarget.value,
+    });
   };
+  componentDidUpdate(
+    prevProps: ProfileStatusPrposType,
+    prevState: ProfileStatusPrposType
+  ) {
+    // debu gger
+    // console.log('1');
+    if (prevProps.status !== this.props.status) {
+      this.setState({ status: this.props.status });
+    }
+  }
   render() {
     return (
       <div>
         {!this.state.editMode ? (
           <div>
             <span onDoubleClick={this.activateEditMode}>
-              {this.props.status || ' --- no status'}
+              {this.props.status || " --- no status"}
             </span>
           </div>
         ) : (
