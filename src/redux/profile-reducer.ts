@@ -29,23 +29,23 @@ export type ProfileUserPropsType = {
   };
 };
 export type addPostActionCreatorType = ReturnType<typeof addPostAC>;
-export type updateNewPostActionCreatorType = ReturnType<typeof onPostChangeAC>;
+// export type updateNewPostActionCreatorType = ReturnType<typeof onPostChangeAC>;
 export type setStatusActionCreatorType = ReturnType<typeof setStatusAC>;
 
 export type ProfileReducerActionType =
   | addPostActionCreatorType
-  | updateNewPostActionCreatorType
+  // | updateNewPostActionCreatorType
   | ReturnType<typeof setUserProfile>
   | setStatusActionCreatorType;
 
 const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST = "UPDATE-NEW-POST";
+// const UPDATE_NEW_POST = "UPDATE-NEW-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_STATUS = "SET-STATUS";
 
 export type initialStateProps = {
   PostData: Array<PostDataProps>;
-  newPostText: string;
+  // newPostText: string;
   profile: ProfileUserPropsType | null;
   status: string;
 };
@@ -59,7 +59,7 @@ let initialState: initialStateProps = {
     { id: "3", message: "hi", likeCount: 9 },
     { id: "3", message: "hi", likeCount: 9 },
   ],
-  newPostText: "",
+  // newPostText: "",
   profile: null,
   status: "",
 };
@@ -73,19 +73,19 @@ export const profileReduser = (
     case ADD_POST:
       let newPost: PostDataProps = {
         id: "1",
-        message: state.newPostText,
+        message: action.newPostText,
         likeCount: 0,
       };
 
       return {
         ...state,
         PostData: [...state.PostData, newPost],
-        newPostText: "",
+        // newPostText: "",
       };
 
-    case UPDATE_NEW_POST: {
-      return { ...state, newPostText: action.newText };
-    }
+    // case UPDATE_NEW_POST: {
+    //   return { ...state, newPostText: action.newText };
+    // }
     case SET_STATUS: {
       return { ...state, status: action.status };
     }
@@ -98,10 +98,11 @@ export const profileReduser = (
   }
 };
 
-export const addPostAC = () => ({ type: ADD_POST } as const);
-export const onPostChangeAC = (newText: string) => {
-  return { type: UPDATE_NEW_POST, newText } as const;
-};
+export const addPostAC = (newPostText: string) =>
+  ({ type: ADD_POST, newPostText } as const);
+// export const onPostChangeAC = (newText: string) => {
+//   return { type: UPDATE_NEW_POST, newText } as const;
+// };
 export const setUserProfile = (profile: ProfileUserPropsType) => {
   return { type: SET_USER_PROFILE, profile } as const;
 };
@@ -127,15 +128,14 @@ export const getStatusTC =
     });
   };
 export const updateStatusTC =
-  (status:string): ThunkType =>
+  (status: string): ThunkType =>
   (dispatch) => {
     ProfileApi.updateStatus(status).then((data) => {
-
       // this.props.toggleIsFetching(false);
-      if(data.resultCode === 0){
-        dispatch(setStatusAC(status))
+      if (data.resultCode === 0) {
+        dispatch(setStatusAC(status));
       }
-      
+
       // this.props.setUsersTotalCount(response.data.totalCount);
     });
   };

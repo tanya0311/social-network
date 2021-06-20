@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   addPostAC,
-  initialStateProps,
-  onPostChangeAC,
+  // onPostChangeAC,
   PostDataProps,
   ProfileUserPropsType,
 } from "../../../redux/profile-reducer";
@@ -14,30 +13,30 @@ import { Dispatch } from "redux";
 // type MapStateToPropsType = initialStateProps;
 type MapStateToPropsType = {
   PostData: Array<PostDataProps>;
-  newPostText: string;
+  // newPostText: string;
   profile: ProfileUserPropsType | null;
 };
 type MapDispathToPropsType = {
-  updateNewPostText: (newText: string) => void;
-  addPost: () => void;
+  // updateNewPostText: (newText: string) => void;
+  addPost: (newPostText: string) => void;
 };
 export type MyPostPropsType = MapStateToPropsType & MapDispathToPropsType;
 
 const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
   return {
     PostData: state.profilePage.PostData,
-    newPostText: state.profilePage.newPostText,
+    // newPostText: state.profilePage.newPostText,
     profile: state.profilePage.profile,
     // status:state.profilePage.status
   };
 };
 const mapDispathToProps = (dispatch: Dispatch): MapDispathToPropsType => {
   return {
-    updateNewPostText: (newText: string) => {
-      dispatch(onPostChangeAC(newText));
-    },
-    addPost: () => {
-      dispatch(addPostAC());
+    // updateNewPostText: (newText: string) => {
+    //   dispatch(onPostChangeAC(newText));
+    // },
+    addPost: (newPostText: string) => {
+      dispatch(addPostAC(newPostText));
     },
   };
 };
