@@ -110,7 +110,7 @@ export const setStatusAC = (status: string) => {
   return { type: SET_STATUS, status } as const;
 };
 export const getUserProfileTC =
-  (userId: number): ThunkType =>
+  (userId: number | null): ThunkType =>
   (dispatch) => {
     ProfileApi.getProfile(userId).then((data) => {
       // this.props.toggleIsFetching(false);
@@ -119,7 +119,7 @@ export const getUserProfileTC =
     });
   };
 export const getStatusTC =
-  (userId: number): ThunkType =>
+  (userId: number | null): ThunkType =>
   (dispatch) => {
     ProfileApi.getStatus(userId).then((data) => {
       // this.props.toggleIsFetching(false);

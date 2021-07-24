@@ -6,6 +6,7 @@ import { loginTC } from "../../redux/auth-reducer";
 import { RootReducersType } from "../../redux/redux-store";
 import { maxLengthCreator, required } from "../../utils/validators/validators";
 import { Input } from "../OtherInterface/FormsControls/FormControl";
+import s from "../OtherInterface/FormsControls/FormControl.module.css";
 
 type FormDataType = {
   email: string;
@@ -39,6 +40,7 @@ export function LoginForm(props: InjectedFormProps<FormDataType>) {
         <Field type="checkbox" name={"rememberMe"} component={Input} />
         <span>remember me</span>
       </div>
+      {props.error && <div className={s.formError}>{props.error}</div>}
       <div>
         <button>Login</button>{" "}
       </div>

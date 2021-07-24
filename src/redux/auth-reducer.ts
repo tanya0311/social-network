@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { getHeaderAuthApi, LoginType } from "../api/API";
 import { ThunkType } from "./redux-store";
 
@@ -53,11 +54,10 @@ export const loginTC =
     getHeaderAuthApi.login(email, password, rememberMe).then((data) => {
       if (data.resultCode === 0) {
         dispatch(getAuthUserDataTC());
-      }
-      //   else {
-      //     let messages = data.messages.length > 0 ? data.messages[0] : 'some error';
-      //     dispatch(stopSubmit('login', {_error: messages}))
-      //  }
+      } else {
+          let messages = data.messages.length > 0 ? data.messages[0] : 'some error';
+          dispatch(stopSubmit('login', {_error: messages}))
+       }
     });
   };
 export const logoutTC = (): ThunkType => (dispatch) => {

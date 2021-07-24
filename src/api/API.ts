@@ -37,10 +37,10 @@ export const getHeaderAuthApi = {
 };
 
 export const ProfileApi = {
-  getProfile(userId: number) {
+  getProfile(userId: number | null) {
     return instance.get(`profile/${userId}`).then((response) => response.data);
   },
-  getStatus(userId: number) {
+  getStatus(userId: number | null) {
     return instance
       .get(`profile/status/${userId}`)
       .then((response) => response.data);

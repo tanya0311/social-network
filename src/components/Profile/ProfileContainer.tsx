@@ -8,7 +8,7 @@ import {
   withAuthRedirect,
 } from "../../hoc/AuthRedirect";
 import {
-  getUserProfileTC, 
+  getUserProfileTC,
   getStatusTC,
   updateStatusTC,
   ProfileUserPropsType,
@@ -18,13 +18,15 @@ import Profile from "./Profile";
 
 type MapStateToPropsType = {
   profile: ProfileUserPropsType | null;
-  status:string
+  status: string;
+  authorizedUserid: number | null;
+  isAuth: boolean;
 };
 type MapDispathToPropsType = {
   // setUserProfile: (profile: ProfileUserPropsType) => void;
-  getUserProfileTC: (userId: number) => void;
-  getStatusTC:(userId: number) => void;
-  updateStatusTC:(status:string) => void;
+  getUserProfileTC: (userId: number | null) => void;
+  getStatusTC: (userId: number | null) => void;
+  updateStatusTC: (status: string) => void;
 };
 
 export type ProfileContainerType = MapStateToPropsWithRedirectType &
@@ -40,30 +42,31 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerType;
 const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
   return {
     profile: state.profilePage.profile,
-
-        
-    //!
     status: state.profilePage.status,
+    authorizedUserid: state.auth.id,
+    isAuth: state.auth.isAuth,
   };
 };
 
 class ProfileContainer extends React.Component<PropsType> {
   componentDidMount() {
     // this.props.toggleIsFetching(true);
-    let userId = Number(this.props.match.params.userId);
-    if (!userId) {
-      userId = 2;
-      // if (!isAuth) return <Redirect to={"/login"} />;
-    }
-    this.props.getUserProfileTC(userId);
+    let id = Number(this.props.match.params.userId);
+    let userId = id ? id : this.props.authorizedUserid;
+    // if (!isAuth) return <Redirect to={"/login"} />;
 
-    //!
-    this.props.getStatusTC(userId )
+    this.props.getUserProfileTC(userId);
+    this.props.getStatusTC(userId);
   }
   render() {
     return (
       <div>
-        <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatusTC} />
+        <Profile
+          {...this.props}
+          profile={this.props.profile}
+          status={this.props.status}
+          updateStatus={this.props.updateStatusTC}
+        />
       </div>
     );
   }
@@ -74,7 +77,7 @@ export default compose<React.ComponentType>(
     mapStateToProps,
     { getUserProfileTC, getStatusTC, updateStatusTC }
   ),
-  withRouter,
+  withRouter
   // withAuthRedirect
 )(ProfileContainer);
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
