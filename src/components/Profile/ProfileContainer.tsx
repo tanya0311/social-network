@@ -53,6 +53,7 @@ class ProfileContainer extends React.Component<PropsType> {
     let userId = Number(this.props.match.params.userId);
     if (!userId) {
       userId = 2;
+      // if (!isAuth) return <Redirect to={"/login"} />;
     }
     this.props.getUserProfileTC(userId);
 

@@ -3,15 +3,18 @@ import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
 import { AuthPropsType } from "./HeaderContainer";
 
-
 type HeaderPropsType = {
   // email:null | string;
-	isAuth: boolean
-	login: string | null
-}
+  isAuth: boolean;
+  login: string | null;
+  logoutTC: () => void;
+};
 
 // function Header(props: AuthPropsType) {
 function Header(props: HeaderPropsType) {
+  const LogoutHamdler = () => {
+    // alert('by')
+  };
   return (
     <header className={s.header}>
       <img
@@ -19,7 +22,14 @@ function Header(props: HeaderPropsType) {
         alt=""
       />
       <div className={s.loginBlock}>
-        {props.isAuth ? <div>hello: {props.login}   </div>  : <NavLink to={"/login"}>Login</NavLink>}
+        {props.isAuth ? (
+          <div>
+            hello: {props.login}{" "}
+            <button onClick={props.logoutTC}> Logout </button>{" "}
+          </div>
+        ) : (
+          <NavLink to={"/login"}>Login</NavLink>
+        )}
       </div>
     </header>
   );

@@ -9,16 +9,16 @@ import { RootReducersType } from "../../redux/redux-store";
 import { Preloader } from "../OtherInterface/Preloader/Preloader";
 import Header from "./Header";
 import { getHeaderAuthApi } from "../../api/API";
+import { logoutTC } from "../../redux/auth-reducer";
 
 type MapStateToPropsType = {
-  // email:null | string;
   isAuth: boolean;
   login: null | string;
 };
 
 type MapDispathToPropsType = {
-  // setAuthUserData: (id: number, email: string, login: string) => void;
   getAuthUserDataTC: () => void;
+  logoutTC: () => void;
 };
 export type AuthPropsType = MapStateToPropsType & MapDispathToPropsType;
 
@@ -28,19 +28,17 @@ class HeaderContainer extends React.Component<
 > {
   componentDidMount() {
     this.props.getAuthUserDataTC();
-    // getHeaderAuthApi.authMe().then((data) => {
-    //   if (data.resultCode === 0) {
-    //     let { id, email, login } = data.data;
-    //     this.props.setAuthUserData(id, email, login);
-    //   }
-    // });
   }
 
   render() {
     return (
       <div>
         {/* <Header {...this.props} /> */}
-        <Header login={this.props.login} isAuth={this.props.isAuth} />
+        <Header
+          login={this.props.login}
+          isAuth={this.props.isAuth}
+          logoutTC={this.props.logoutTC}
+        />
       </div>
     );
   }
@@ -48,8 +46,6 @@ class HeaderContainer extends React.Component<
 
 const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
   return {
-    // id: state.auth.id,
-    // email: state.auth.email,
     login: state.auth.login,
     isAuth: state.auth.isAuth,
   };
@@ -60,4 +56,4 @@ export default connect<
   MapDispathToPropsType,
   {},
   RootReducersType
->(mapStateToProps, { getAuthUserDataTC })(HeaderContainer);
+>(mapStateToProps, { getAuthUserDataTC, logoutTC })(HeaderContainer);
