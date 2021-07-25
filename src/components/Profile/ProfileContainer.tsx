@@ -53,7 +53,13 @@ class ProfileContainer extends React.Component<PropsType> {
     // this.props.toggleIsFetching(true);
     let id = Number(this.props.match.params.userId);
     let userId = id ? id : this.props.authorizedUserid;
-    // if (!isAuth) return <Redirect to={"/login"} />;
+    // if (!userId) {
+    //    userId = 2
+    // }
+    if(!userId) {
+      this.props.history.push('/login')
+}
+  
 
     this.props.getUserProfileTC(userId);
     this.props.getStatusTC(userId);
@@ -77,9 +83,11 @@ export default compose<React.ComponentType>(
     mapStateToProps,
     { getUserProfileTC, getStatusTC, updateStatusTC }
   ),
-  withRouter
+  withRouter,
+  // удалили withAuthRedirect тк он защищает профайл, что бы посмотреть его нам надо залогиниться
   // withAuthRedirect
 )(ProfileContainer);
+
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 
 // let withUrlDataContainerComponent = withRouter(AuthRedirectComponent);

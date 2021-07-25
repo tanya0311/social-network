@@ -1,5 +1,5 @@
 import { stopSubmit } from "redux-form";
-import { getHeaderAuthApi, LoginType } from "../api/API";
+import { authApi, LoginType } from "../api/API";
 import { ThunkType } from "./redux-store";
 
 export type AuthActionType = ReturnType<typeof setAuthUserData>;
@@ -41,7 +41,8 @@ export const setAuthUserData = (
 };
 
 export const getAuthUserDataTC = (): ThunkType => (dispatch) => {
-  getHeaderAuthApi.authMe().then((data) => {
+  // return promise for app-reducer
+  return authApi.authMe().then((data) => {
     if (data.resultCode === 0) {
       let { id, email, login } = data.data;
       dispatch(setAuthUserData(id, email, login, true));
@@ -51,17 +52,18 @@ export const getAuthUserDataTC = (): ThunkType => (dispatch) => {
 export const loginTC =
   (email: string, password: string, rememberMe: boolean): ThunkType =>
   (dispatch) => {
-    getHeaderAuthApi.login(email, password, rememberMe).then((data) => {
+    return authApi.login(email, password, rememberMe).then((data) => {
       if (data.resultCode === 0) {
         dispatch(getAuthUserDataTC());
       } else {
-          let messages = data.messages.length > 0 ? data.messages[0] : 'some error';
-          dispatch(stopSubmit('login', {_error: messages}))
-       }
+        let messages =
+          data.messages.length > 0 ? data.messages[0] : "some error";
+        dispatch(stopSubmit("login", { _error: messages }));
+      }
     });
   };
 export const logoutTC = (): ThunkType => (dispatch) => {
-  getHeaderAuthApi.logout().then((data) => {
+  authApi.logout().then((data) => {
     if (data.resultCode === 0) {
       dispatch(setAuthUserData(null, null, null, false));
     }

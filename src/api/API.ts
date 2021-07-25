@@ -22,7 +22,7 @@ export const UsersApi = {
   },
 };
 
-export const getHeaderAuthApi = {
+export const authApi = {
   authMe() {
     return instance.get(`auth/me`).then((response) => response.data);
   },
