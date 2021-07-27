@@ -134,6 +134,7 @@ export const getUsersThunkCreator = (
   return (dispatch) => {
     // debugger
     dispatch(toggleIsFetching(true));
+    dispatch(setCurrentPage(currentPage));
     // getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
     UsersApi.getUsers(currentPage, pageSize).then((data) => {
       // debugger;
