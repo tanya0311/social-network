@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
+import { useEffect } from "react";
 
 type ProfileStatusPrposType = {
   status: string;
@@ -7,7 +8,11 @@ type ProfileStatusPrposType = {
 
 const ProfileStatusWhithHooks = (props: ProfileStatusPrposType) => {
   const [editMode, setEditMode] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>("");
+  const [status, setStatus] = useState<string>(props.status);
+
+  useEffect(()=>{
+    setStatus(props.status)
+  },[props.status])
 
   const onClickHandler = () => {
     setEditMode(!editMode);
