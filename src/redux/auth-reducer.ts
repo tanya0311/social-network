@@ -1,5 +1,5 @@
 import { stopSubmit } from "redux-form";
-import { authApi, LoginType } from "../api/API";
+import { authApi } from "../api/API";
 import { ThunkType } from "./redux-store";
 
 export type AuthActionType = ReturnType<typeof setAuthUserData>;
@@ -41,7 +41,6 @@ export const setAuthUserData = (
 };
 
 export const getAuthUserDataTC = (): ThunkType => (dispatch) => {
-  // return promise for app-reducer
   return authApi.authMe().then((data) => {
     if (data.resultCode === 0) {
       let { id, email, login } = data.data;

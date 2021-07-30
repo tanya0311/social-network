@@ -6,18 +6,12 @@ type ProfileStatusPrposType = {
 };
 
 class ProfileStatus extends React.Component<ProfileStatusPrposType> {
-  // statusInputRef= React.createRef()
   state = {
     editMode: false,
     status1: this.props.status,
-    // editMode: true,
   };
   activateEditMode = () => {
-    // debugger
-    // console.log('this:', this)
     this.setState({ editMode: true });
-    // this.state.editMode = true
-    // this.forceUpdate()
   };
   deactivateEditMode = () => {
     this.setState({ editMode: false });
@@ -32,8 +26,6 @@ class ProfileStatus extends React.Component<ProfileStatusPrposType> {
     prevProps: ProfileStatusPrposType,
     prevState: ProfileStatusPrposType
   ) {
-    // debu gger
-    // console.log('1');
     if (prevProps.status !== this.props.status) {
       this.setState({ status: this.props.status });
     }
@@ -50,19 +42,14 @@ class ProfileStatus extends React.Component<ProfileStatusPrposType> {
         ) : (
           <div>
             <input
-              // ref={this.statusInputRef}
               autoFocus
               onBlur={this.deactivateEditMode}
-              // value={this.pr ops.status}
               onChange={this.onSatatusChange}
               value={this.state.status1}
               type="text"
             />
           </div>
         )}
-        {/*  other version */}
-        {/* {!this.state.editMode &&  <span>{this.props.status}</span>}
-        {this.state.editMode &&   <input value={this.props.status} type="text" />} */}
       </div>
     );
   }

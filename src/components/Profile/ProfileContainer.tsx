@@ -5,7 +5,6 @@ import { RouteComponentProps } from "react-router-dom";
 import { compose } from "redux";
 import {
   MapStateToPropsWithRedirectType,
-  withAuthRedirect,
 } from "../../hoc/AuthRedirect";
 import {
   getUserProfileTC,
@@ -23,7 +22,6 @@ type MapStateToPropsType = {
   isAuth: boolean;
 };
 type MapDispathToPropsType = {
-  // setUserProfile: (profile: ProfileUserPropsType) => void;
   getUserProfileTC: (userId: number | null) => void;
   getStatusTC: (userId: number | null) => void;
   updateStatusTC: (status: string) => void;
@@ -35,7 +33,6 @@ export type ProfileContainerType = MapStateToPropsWithRedirectType &
 
 type PathParamsType = {
   userId: string;
-  // userId?: number | undefined,
 };
 type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerType;
 
@@ -50,12 +47,8 @@ const mapStateToProps = (state: RootReducersType): MapStateToPropsType => {
 
 class ProfileContainer extends React.Component<PropsType> {
   componentDidMount() {
-    // this.props.toggleIsFetching(true);
     let id = Number(this.props.match.params.userId);
     let userId = id ? id : this.props.authorizedUserid;
-    // if (!userId) {
-    //    userId = 2
-    // }
     if(!userId) {
       this.props.history.push('/login')
 }

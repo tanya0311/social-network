@@ -1,4 +1,3 @@
-import { Dispatch } from "redux";
 import { getAuthUserDataTC } from "./auth-reducer";
 import { ThunkType } from "./redux-store";
 

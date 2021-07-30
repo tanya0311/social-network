@@ -2,7 +2,6 @@ import React from "react";
 import { ProfileUserPropsType } from "../../../redux/profile-reducer";
 import { Preloader } from "../../OtherInterface/Preloader/Preloader";
 import s from "./ProfileInfo.module.css";
-import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWhithHooks from "./ProfileStatusWhithHook";
 
 type ProfileInfoPrposType = {
@@ -25,8 +24,7 @@ function ProfileInfo(props: ProfileInfoPrposType) {
       <div className={s.descriptionBlok}>
         <img src={props.profile.photos.large} className={s.avatarProfileUser} />
         <div>
-          {/* STATUS: <ProfileStatus status={props.status} updateStatus={props.updateStatus} /> */}
-          STATUS:{" "}
+          STATUS:
           <ProfileStatusWhithHooks
             status={props.status}
             updateStatus={props.updateStatus}

@@ -1,4 +1,3 @@
-import { Dispatch } from "redux";
 import { UsersApi } from "../api/API";
 import { ThunkType } from "./redux-store";
 
@@ -22,7 +21,6 @@ export type initialStatePropsType = {
   totalUsersCount: number;
   currentPage: number;
   isFetching: boolean;
-  // followingInProgress: boolean;
   followingInProgress: number[];
 };
 
@@ -32,7 +30,6 @@ let initialState: initialStatePropsType = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: true,
-  // followingInProgress: false,
   // followingInProgress: [17216,17215,17214], // убираем id пользователя а то кнопка будет зафиксирована в true и мы на нее не сможем нажать
   followingInProgress: [],
 };
@@ -76,7 +73,6 @@ export const userReduser = (
       };
 
     case SET_USERS:
-      // return { ...state, users: [...state.users, ...action.users] };
       return { ...state, users: action.users };
 
     case SET_CURRENT_PAGE:
@@ -86,7 +82,6 @@ export const userReduser = (
     case TOGGLE_IS_FETCHING:
       return { ...state, isFetching: action.isFetching };
     case TOGGLE_IS_FOLLOWING_PROGRESS:
-      // return { ...state, followingInProgress: action.progress };
       return {
         ...state,
         followingInProgress: action.isFetching
@@ -118,7 +113,6 @@ export const setUsersTotalCount = (count: number) => {
 export const toggleIsFetching = (isFetching: boolean) => {
   return { type: TOGGLE_IS_FETCHING, isFetching } as const;
 };
-// export const toggleFollowingInProgress = (progress: boolean) => {
 export const toggleFollowingInProgress = (
   isFetching: boolean,
   userId: number
@@ -130,14 +124,10 @@ export const getUsersThunkCreator = (
   currentPage: number,
   pageSize: number
 ): ThunkType => {
-  // return (dispath: Dispatch<UsersReducerActionType >) => {
   return (dispatch) => {
-    // debugger
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(currentPage));
-    // getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
     UsersApi.getUsers(currentPage, pageSize).then((data) => {
-      // debugger;
       dispatch(toggleIsFetching(false));
       dispatch(setUsers(data.items));
       dispatch(setUsersTotalCount(data.totalCount));
@@ -146,7 +136,6 @@ export const getUsersThunkCreator = (
 };
 
 export const followTC = (id: number): ThunkType => {
-  // return (dispath: Dispatch<UsersReducerActionType >) => {
   return (dispatch) => {
     dispatch(toggleFollowingInProgress(true, id));
     UsersApi.follow(id).then((data) => {
@@ -158,7 +147,6 @@ export const followTC = (id: number): ThunkType => {
   };
 };
 export const unfollowTC = (id: number): ThunkType => {
-  // return (dispath: Dispatch<UsersReducerActionType >) => {
   return (dispatch) => {
     dispatch(toggleFollowingInProgress(true, id));
     UsersApi.unFollow(id).then((data) => {

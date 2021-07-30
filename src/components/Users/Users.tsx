@@ -13,22 +13,15 @@ type UsersType = {
   unfollow: (userID: number) => void;
   follow: (userID: number) => void;
   onPageChanged: (pageNumber: number) => void;
-  // followingInProgress: boolean;
   followingInProgress: number[];
-  // toggleFollowingInProgress: (isFetching: boolean, id: number) => void;
 };
 type UsersType2 = {
   onPageChanged: (pageNumber: number) => void;
 };
-// for {/* <Users {...this.props} onPageChanged={this.onPageChanged} /> */}
-// function Users(props: UsersType2 & UserPropsType) {
 
 function Users(props: UsersType) {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
   let pages: Array<number> = [];
-  // for (let i = 1; i <= pagesCount; i++) {
-  //   pages.push(i);
-  // }
 
   const createPages = (
     pages: Array<number>, //массив со страницами

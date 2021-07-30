@@ -2,7 +2,6 @@ import React from "react";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import {
   maxLengthCreator,
-  minLength1,
   required,
 } from "../../../utils/validators/validators";
 import { Textarea } from "../../OtherInterface/FormsControls/FormControl";
@@ -13,9 +12,7 @@ import Post from "./Post/Post";
 const maxLength50 = maxLengthCreator(50);
 
 const  MyPost=React.memo((props: MyPostPropsType)=> {
-  // console.log('render yes');
-  
-  let posts = props.PostData.map((e) => (
+  let posts = [...props.PostData].reverse().map((e) => (
     <Post key={e.id} message={e.message} likeCount={e.likeCount} />
   ));
 
@@ -46,11 +43,6 @@ export const AddNewPostProfile = (props: InjectedFormProps<FormDataType>) => {
         placeholder="Enter your message"
         validate={[required, maxLength50]}
       />
-      {/* <textarea
-        ref={newPostElement}
-        value={props.newPostText}
-        onChange={onPostChange}
-      ></textarea> */}
       <button>Add</button>
     </form>
   );
