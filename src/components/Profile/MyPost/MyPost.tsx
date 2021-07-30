@@ -12,7 +12,9 @@ import Post from "./Post/Post";
 
 const maxLength50 = maxLengthCreator(50);
 
-function MyPost(props: MyPostPropsType) {
+const  MyPost=React.memo((props: MyPostPropsType)=> {
+  // console.log('render yes');
+  
   let posts = props.PostData.map((e) => (
     <Post key={e.id} message={e.message} likeCount={e.likeCount} />
   ));
@@ -28,7 +30,7 @@ function MyPost(props: MyPostPropsType) {
       <div className={s.post}>{posts}</div>
     </div>
   );
-}
+})
 
 export default MyPost;
 
