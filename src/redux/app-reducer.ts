@@ -13,7 +13,7 @@ const SET_INITIALAZED = "SET_INITIALAZED";
 
 export type AppReducerActionType = ReturnType<typeof setInitialazedAC>;
 
-export const appReduser = (
+export const appReducer = (
   state: initialStatePropsType = initialState,
   action: AppReducerActionType
 ): initialStatePropsType => {

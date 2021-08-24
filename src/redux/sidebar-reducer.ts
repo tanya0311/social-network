@@ -16,7 +16,7 @@ let initialState: initialStateSidebarPropsType= {
   ],
 };
 
-export function sidebarReduser(
+export function sidebarReducer(
   state: initialStateSidebarPropsType = initialState,
   action: SidebarActionType
 ):initialStateSidebarPropsType {

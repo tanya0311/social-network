@@ -20,7 +20,7 @@ let initialState: initialStatePropsType = {
 
 const SET_USER_DATA = "SET_USER_DATA";
 
-export function authReduser(
+export function authReducer(
   state: initialStatePropsType = initialState,
   action: AuthActionType
 ): initialStatePropsType {

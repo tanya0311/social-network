@@ -51,7 +51,7 @@ export type UsersReducerActionType =
   | ReturnType<typeof toggleIsFetching>
   | ReturnType<typeof toggleFollowingInProgress>;
 
-export const userReduser = (
+export const userReducer = (
   state: initialStatePropsType = initialState,
   action: UsersReducerActionType
 ): initialStatePropsType => {

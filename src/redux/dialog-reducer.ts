@@ -36,7 +36,7 @@ let initialState: initialStatePropsType = {
   ],
 };
 
-export function dialogReduser(
+export function dialogReducer(
   state: ReduserInitialStateProps = initialState,
   action: DialogReducerActionType
 ): initialStatePropsType {
