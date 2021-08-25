@@ -1,8 +1,7 @@
-import React, { ComponentType } from "react";
+import React from "react";
 import { Route, withRouter } from "react-router-dom";
 import "./App.css";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import Header from "./components/header/Header";
 import HeaderContainer from "./components/header/HeaderContainer";
 import Login from "./components/Login/Login";
 import Nav from "./components/nav/nav";

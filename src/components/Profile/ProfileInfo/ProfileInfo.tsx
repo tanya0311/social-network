@@ -3,6 +3,7 @@ import { ProfileUserPropsType } from "../../../redux/profile-reducer";
 import { Preloader } from "../../OtherInterface/Preloader/Preloader";
 import s from "./ProfileInfo.module.css";
 import ProfileStatusWhithHooks from "./ProfileStatusWhithHook";
+import { UserAvatar } from "../../OtherInterface/UserAvatar/UserAvatar";
 
 type ProfileInfoPrposType = {
   profile: ProfileUserPropsType | null;
@@ -17,12 +18,11 @@ function ProfileInfo(props: ProfileInfoPrposType) {
 
   return (
     <div>
-      {/* <div className={s.imgProfile}>
-        <img src="https://bipbap.ru/wp-content/uploads/2017/08/16.jpg" alt="" />
-      </div> */}
-
       <div className={s.descriptionBlok}>
-        <img src={props.profile.photos.large} className={s.avatarProfileUser} />
+        <div className={s.avatarProfileUser}>
+          <UserAvatar photos={props.profile.photos}  /> 
+        </div>
+       
         <div>
           STATUS:
           <ProfileStatusWhithHooks
@@ -54,3 +54,5 @@ function ProfileInfo(props: ProfileInfoPrposType) {
 }
 
 export default ProfileInfo;
+
+

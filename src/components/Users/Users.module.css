@@ -1,17 +1,8 @@
 
-.userPhoto {
+.userPhoto img{
    width: 100px;
    height: 100px;
    border-radius: 50%;
  }
- .selectPage{
-   font-weight: bold;
-   padding: 10px;
- }
- .buttonPage{
-   padding: 10px;
- }
- .numberPage{
-   margin: 10px;
- }
+ 
 

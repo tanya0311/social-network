@@ -31,7 +31,6 @@ export const Input = (props: WrappedFieldProps) => {
 };
 
 // export const Textarea = (props: any) => {
-//   // debugger
 //   const hasError=props.meta.touched && props.meta.error
 //   return (
 //     <div className={s.formControl + " " + (hasError ? s.error : '')}>
@@ -46,7 +45,6 @@ export const Input = (props: WrappedFieldProps) => {
 // };
 
 // export const Input= ({input, meta, ...props}: any) => {
-//   // debugger
 //   const hasError=meta.touched && meta.error
 //   return (
 //     <div className={s.formControl + " " + (hasError ? s.error : '')}>

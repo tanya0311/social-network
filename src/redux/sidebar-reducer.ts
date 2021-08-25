@@ -1,12 +1,4 @@
 
-export type NameUserProps = {
-  id: string;
-  name: string;
-};
-export type initialStateSidebarPropsType = {
-  nameUser: Array<NameUserProps>;
-}; 
-
 export type SidebarActionType = any;
 let initialState: initialStateSidebarPropsType= {
   nameUser: [
@@ -22,3 +14,11 @@ export function sidebarReducer(
 ):initialStateSidebarPropsType {
   return state;
 }
+//type
+export type NameUserProps = {
+  id: string;
+  name: string;
+};
+export type initialStateSidebarPropsType = {
+  nameUser: Array<NameUserProps>;
+}; 
