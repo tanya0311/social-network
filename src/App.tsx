@@ -1,7 +1,7 @@
-import React from "react";
+import React, {Suspense} from "react";
 import { Route, withRouter } from "react-router-dom";
 import "./App.css";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+// import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import Login from "./components/Login/Login";
 import Nav from "./components/nav/nav";
@@ -13,6 +13,8 @@ import { RootReducersType } from "./redux/redux-store";
 import { compose } from "redux";
 import {  initialazeAppTC } from "./redux/app-reducer";
 import { Preloader } from "./components/OtherInterface/Preloader/Preloader";
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 
 class App extends React.Component<AuthPropsType, initialStatePropsType> {
   
@@ -28,13 +30,16 @@ class App extends React.Component<AuthPropsType, initialStatePropsType> {
         <div className="app-wrapper-header">
           <HeaderContainer />
         </div>
-        {/* <Header /> */}
         <div className="app-wrapper-nav">
           <Nav />
         </div>
         <div className="app-wrapper-content">
           <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-          <Route path="/dialogs" render={() => <DialogsContainer />} />
+          <Route path="/dialogs" render={() => {
+          return  <Suspense fallback={<Preloader />}>
+          <DialogsContainer />
+          </Suspense>
+          }} />
           <Route path="/users" render={() => <UsersContainer1 />} />
           <Route path="/login" render={() => <Login />} />
         </div>
@@ -57,7 +62,6 @@ type MapStateToPropsType = {
 
 type MapDispathToPropsType = {
   initialazeAppTC: () => void;
-  // logoutTC: () => void;
 };
 export type AuthPropsType = MapStateToPropsType & MapDispathToPropsType;
 

@@ -1,10 +1,12 @@
+import { profile } from "console"
 import { ProfileApi } from "../api/API"
 import { ThunkType } from "./redux-store"
 
-const ADD_POST = "ADD-POST"
-const DELETE_POST = "DELETE-POST"
-const SET_USER_PROFILE = "SET-USER-PROFILE"
-const SET_STATUS = "SET-STATUS"
+const ADD_POST = "PROFILE/ADD-POST"
+const DELETE_POST = "PROFILE/DELETE-POST"
+const SET_USER_PROFILE = "PROFILE/SET-USER-PROFILE"
+const SET_STATUS = "PROFILE/SET-STATUS"
+const SEVE_PHOTO = "PROFILE/SEVE-PHOTO"
 
 let initialState: initialStateProps = {
 	PostData: [
@@ -42,6 +44,9 @@ export const profileReducer = (
 		case SET_USER_PROFILE: {
 			return { ...state, profile: action.profile }
 		}
+		case SEVE_PHOTO: {
+			return {...state, profile: {...state.profile, photos: action.photos} as ProfileUserPropsType}
+		}
 
 		default:
 			return state
@@ -59,6 +64,9 @@ export const setUserProfile = (profile: ProfileUserPropsType) => {
 }
 export const setStatusAC = (status: string) => {
 	return { type: SET_STATUS, status } as const
+}
+export const savePhotoSuccessAC = (photos:any) => {
+	return { type: SEVE_PHOTO, photos} as const
 }
 
 //thunk
@@ -80,6 +88,14 @@ export const updateStatusTC =
 		let data = await ProfileApi.updateStatus(status)
 		if (data.resultCode === 0) {
 			dispatch(setStatusAC(status))
+		}
+	}
+export const savePhotoTC =
+	(file: any): ThunkType =>
+	async (dispatch) => {
+		let data = await ProfileApi.savePhotos(file)
+		if (data.resultCode === 0) {
+			dispatch(savePhotoSuccessAC(data.data.photos))
 		}
 	}
 
@@ -123,5 +139,6 @@ export type setStatusACType = ReturnType<typeof setStatusAC>
 export type ProfileReducerActionType =
 	| addPostACType
 	| ReturnType<typeof setUserProfile>
+	| ReturnType<typeof savePhotoSuccessAC>
 	| setStatusACType
 	| deletePostACType
