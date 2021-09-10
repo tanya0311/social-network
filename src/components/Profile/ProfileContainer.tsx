@@ -9,6 +9,7 @@ import {
 	getStatusTC,
 	updateStatusTC,
   savePhotoTC,
+  saveProfileTC,
 	ProfileUserPropsType,
 } from "../../redux/profile-reducer"
 import { RootReducersType } from "../../redux/redux-store"
@@ -25,6 +26,7 @@ type MapDispathToPropsType = {
 	getStatusTC: (userId: number | null) => void
 	updateStatusTC: (status: string) => void
 	savePhotoTC: (file: File) => void
+  saveProfileTC:(formData:ProfileUserPropsType)=>void
 }
 
 export type ProfileContainerType = MapStateToPropsWithRedirectType &
@@ -74,6 +76,7 @@ class ProfileContainer extends React.Component<PropsType> {
 					updateStatus={this.props.updateStatusTC}
           isOwner={!this.props.match.params.userId}
           savePhoto={this.props.savePhotoTC}
+          saveProfile={this.props.saveProfileTC}
 				/>
 			</div>
 		)
@@ -83,7 +86,7 @@ class ProfileContainer extends React.Component<PropsType> {
 export default compose<React.ComponentType>(
 	connect<MapStateToPropsType, MapDispathToPropsType, {}, RootReducersType>(
 		mapStateToProps,
-		{ getUserProfileTC, getStatusTC, updateStatusTC, savePhotoTC}
+		{ getUserProfileTC, getStatusTC, updateStatusTC, savePhotoTC,  saveProfileTC}
 	),
 	withRouter
 	// удалили withAuthRedirect тк он защищает профайл, что бы посмотреть его нам надо залогиниться

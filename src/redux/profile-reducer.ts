@@ -1,4 +1,3 @@
-import { profile } from "console"
 import { ProfileApi } from "../api/API"
 import { ThunkType } from "./redux-store"
 
@@ -91,11 +90,19 @@ export const updateStatusTC =
 		}
 	}
 export const savePhotoTC =
-	(file: any): ThunkType =>
+	(file: File): ThunkType =>
 	async (dispatch) => {
 		let data = await ProfileApi.savePhotos(file)
 		if (data.resultCode === 0) {
 			dispatch(savePhotoSuccessAC(data.data.photos))
+		}
+	}
+export const saveProfileTC =
+	(profile: ProfileUserPropsType): ThunkType =>
+	async (dispatch) => {
+		let data = await ProfileApi.saveProfile(profile)
+		if (data.resultCode === 0) {
+			// dispatch(savePhotoSuccessAC(data.data.photos))
 		}
 	}
 
@@ -125,7 +132,7 @@ export type ProfileUserPropsType = {
 	contacts: ContactsType
 	lookingForAJob: boolean
 	lookingForAJobDescription: string
-	fullName: string
+	fullName: string 
 	userId: number
 	photos: {
 		small: string

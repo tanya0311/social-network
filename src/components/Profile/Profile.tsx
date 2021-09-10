@@ -9,12 +9,13 @@ type ProfilePropsType = {
   updateStatus:(status:string) => void;
   isOwner:boolean
   savePhoto: (file: File) => void
+  saveProfile:(formData:ProfileUserPropsType)=>void
 };
 
 function Profile(props: ProfilePropsType) {
   return (
     <div>
-      <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} isOwner={props.isOwner} savePhoto={props.savePhoto}/>
+      <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} isOwner={props.isOwner} savePhoto={props.savePhoto} saveProfile={props.saveProfile}/>
       <MyPostContainer />
     </div>
   );
