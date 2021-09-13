@@ -1,5 +1,7 @@
+import { stopSubmit } from "redux-form"
 import { ProfileApi } from "../api/API"
 import { ThunkType } from "./redux-store"
+import { PhotosType } from "./users-reducer"
 
 const ADD_POST = "PROFILE/ADD-POST"
 const DELETE_POST = "PROFILE/DELETE-POST"
@@ -64,7 +66,7 @@ export const setUserProfile = (profile: ProfileUserPropsType) => {
 export const setStatusAC = (status: string) => {
 	return { type: SET_STATUS, status } as const
 }
-export const savePhotoSuccessAC = (photos:any) => {
+export const savePhotoSuccessAC = (photos:PhotosType ) => {
 	return { type: SEVE_PHOTO, photos} as const
 }
 
@@ -99,11 +101,18 @@ export const savePhotoTC =
 	}
 export const saveProfileTC =
 	(profile: ProfileUserPropsType): ThunkType =>
-	async (dispatch) => {
+	async (dispatch, getState) => {
+		const userId=getState().auth.id
 		let data = await ProfileApi.saveProfile(profile)
 		if (data.resultCode === 0) {
-			// dispatch(savePhotoSuccessAC(data.data.photos))
-		}
+			
+			//!!!!!!!!!!!!!!!!!!!!!!
+			//@ts-ignore
+			dispatch(setUserProfile(userId))
+		}else {
+			dispatch(stopSubmit("edit-profile", {_error: data.messages[0] }))
+			return Promise.reject(data.messages[0])
+	  }
 	}
 
 //type
@@ -134,10 +143,11 @@ export type ProfileUserPropsType = {
 	lookingForAJobDescription: string
 	fullName: string 
 	userId: number
-	photos: {
-		small: string
-		large: string
-	}
+	photos:PhotosType 
+	//  {
+	// 	small: string
+	// 	large: string
+	// }
 }
 export type addPostACType = ReturnType<typeof addPostAC>
 export type deletePostACType = ReturnType<typeof deletePostAC>

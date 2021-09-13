@@ -1,7 +1,5 @@
 import React, { ChangeEvent, useState } from "react"
-import {
-	ProfileUserPropsType,
-} from "../../../redux/profile-reducer"
+import { ProfileUserPropsType } from "../../../redux/profile-reducer"
 import { Preloader } from "../../OtherInterface/Preloader/Preloader"
 import s from "./ProfileInfo.module.css"
 import ProfileStatusWhithHooks from "./ProfileStatusWhithHook"
@@ -15,7 +13,7 @@ type ProfileInfoPropsType = {
 	updateStatus: (status: string) => void
 	isOwner: boolean
 	savePhoto: (file: File) => void
-  saveProfile:(formData:ProfileUserPropsType)=>void
+	saveProfile: (formData: ProfileUserPropsType) => void
 }
 
 function ProfileInfo(props: ProfileInfoPropsType) {
@@ -30,15 +28,11 @@ function ProfileInfo(props: ProfileInfoPropsType) {
 		}
 	}
 
-  const onSubmit = (formData:ProfileUserPropsType) => {
-    props.saveProfile(formData)
-    // .then(
-    //     () => {
-    //         setEditMode(false);
-    //     }
-    // );
-    console.log(formData)
-}
+	const onSubmit =  (formData: ProfileUserPropsType) => {
+		// @ts-ignore
+		 props.saveProfile(formData).then(()=>{})
+		setEditMode(false)
+	}
 	return (
 		<div>
 			<div className={s.descriptionBlok}>
@@ -57,17 +51,21 @@ function ProfileInfo(props: ProfileInfoPropsType) {
 					/>
 				</div>
 				{editMode ? (
-					<ProfileDataForm profile={props.profile} onSubmit={onSubmit} />
+					<ProfileDataForm
+						initialValues={props.profile}
+						profile={props.profile}
+						onSubmit={onSubmit}
+					/>
 				) : (
-					<ProfileData profile={props.profile} isOwner={props.isOwner} editModeCallback={()=>setEditMode(true) } />
+					<ProfileData
+						profile={props.profile}
+						isOwner={props.isOwner}
+						editModeCallback={() => setEditMode(true)}
+					/>
 				)}
 			</div>
 		</div>
 	)
 }
-
-
-
-
 
 export default ProfileInfo

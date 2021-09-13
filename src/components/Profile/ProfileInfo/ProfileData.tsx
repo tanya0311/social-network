@@ -3,8 +3,8 @@ import React from "react"
 import Contact from "./Contact"
 
 type ProfileDataPropsType = {
-	profile: ProfileUserPropsType
-	isOwner: boolean
+	profile: ProfileUserPropsType 
+	isOwner: boolean 
   editModeCallback:()=>void
 }
 
